@@ -1,0 +1,76 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+/* Additional styles */
+@import 'additional-styles/utility-patterns.css';
+@import 'additional-styles/range-slider.css';
+@import 'additional-styles/toggle-switch.css';
+@import 'additional-styles/theme.css';
+
+@import 'tailwindcss/utilities';
+
+/* Additional Tailwind directives: https://tailwindcss.com/docs/functions-and-directives/#responsive */
+@layer utilities {
+    .rtl {
+        direction: rtl;
+    }
+}
+
+.text-ceRRoute {
+    color: #333; /* DiÄer harfler iÃ§in varsayÄ±lan renk */
+}
+
+.text-orange-500 {
+    color: #FFA500; /* Turuncu renk */
+}
+
+@keyframes moveGradient {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+#hero-ill-a {
+    animation: moveGradient 5s linear infinite alternate;
+}
+
+/* Dropdown menÃ¼ stilleri */
+nav ul li ul {
+    position: absolute;
+    top: calc(100% + 8px); /* Ana menÃ¼ Ã¶Äesinden biraz aÅaÄÄ±da baÅlasÄ±n */
+    left: 0;
+    min-width: 160px;
+    padding: 8px 0;
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10; /* DiÄer iÃ§eriklerin Ã¼zerinde gÃ¶zÃ¼ksÃ¼n */
+
+    transition: opacity 0.3s ease;
+}
+
+nav ul li:hover > ul {
+    display: block;
+    opacity: 1; /* GÃ¶rÃ¼nÃ¼r hale gelsin */
+}
+
+/* Dropdown menÃ¼ Ã¶Äeleri */
+nav ul li ul li {
+    padding: 8px 16px;
+    color: #333333;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li ul li:hover {
+    background-color: #f3f4f6;
+}
+
+.left-align {
+    text-align: left;
+    margin-left: -100px;
+}
