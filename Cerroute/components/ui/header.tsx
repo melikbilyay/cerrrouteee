@@ -7,6 +7,7 @@ import Dropdown from '@/components/utils/dropdown';
 import MobileMenu from './mobile-menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faSearch, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import Voice from '@/components/voice';
 
 
 export default function Header() {
@@ -167,6 +168,12 @@ export default function Header() {
                       {/* Add more languages as needed */}
                     </ul>
                 )}
+                <div className="relative flex items-center">
+                  <div className="flex-grow"></div> {/* Boşluk bırakmak için */}
+                  <div className="mr-1">
+                    <Voice />
+                  </div>
+                </div>
               </div>
             </div>
 

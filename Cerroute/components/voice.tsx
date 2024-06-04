@@ -32,7 +32,7 @@ function Voice() {
 
   return (
     <button 
-      className="btn text-white bg-gray-500 hover:bg-gray-400 w-40 h-15 sm:w-40 sm:h-15 sm:ml-4"
+      className="btn text-white bg-gray-500 ml-5 hover:bg-gray-400 w-10 h-10 sm:w-10 sm:h-10 sm:ml-4"
       onClick={toggleSpeech}
     >
       {isSpeaking ? 'Stop' : 'Start'}
