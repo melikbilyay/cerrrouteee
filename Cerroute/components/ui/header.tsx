@@ -1,179 +1,539 @@
 'use client'
 
-import {useState, useEffect} from 'react';
+import { Fragment, useEffect, useState } from 'react';
+import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react';
+import {
+    ArrowPathIcon,
+    Bars3Icon,
+    ChartPieIcon,
+    CursorArrowRaysIcon,
+    FingerPrintIcon,
+    SquaresPlusIcon,
+    XMarkIcon,
+    MagnifyingGlassIcon
+} from '@heroicons/react/24/outline';
+import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
-import Logo from './logo';
-import Dropdown from '@/components/utils/dropdown';
-import MobileMenu from './mobile-menu';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown, faSearch, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { GlobeAltIcon, ShoppingCartIcon } from '@heroicons/react/20/solid';
+
+const categories = [
+    {
+        name: 'Computer Science',
+        href: '#',
+        icon: ChartPieIcon,
+        subcategories: [
+            { name: 'Cyber Security', href: '#' },
+            { name: 'Information Systems', href: '#' },
+            { name: 'Computer Security', href: '#' },
+            { name: 'Microsoft Power BI', href: '#' },
+            { name: 'Business Intelligence', href: '#' },
+            { name: 'Microsoft Excel', href: '#' },
+        ],
+    },
+    {
+        name: 'Data Science',
+        href: '#',
+        icon: CursorArrowRaysIcon,
+        subcategories: [
+            { name: 'Data Analysis', href: '#' },
+            { name: 'Big Data - Sıfırdan ve Gelişmiş iki düzeyde eğitim', href: '#' },
+            { name: 'Data Modeling', href: '#' },
+            { name: 'Data Analysis Expressions (DAX)', href: '#' },
+        ],
+    },
+    {
+        name: 'Web Development',
+        href: '#',
+        icon: FingerPrintIcon,
+        subcategories: [
+            { name: 'Web Development', href: '#' },
+            { name: 'Python', href: '#' },
+            { name: 'JavaScript', href: '#' },
+            { name: 'React JS', href: '#' },
+            { name: 'CSS', href: '#' },
+            { name: 'HTML', href: '#' },
+            { name: 'ASP.NET Core', href: 'http://ASP.NET' },
+            { name: 'Node.Js', href: '#' },
+            { name: 'UI Design', href: '#' },
+            { name: 'UX Design', href: '#' },
+        ],
+    },
+    {
+        name: 'Mobile Development',
+        href: '#',
+        icon: SquaresPlusIcon,
+        subcategories: [
+            { name: 'Google Flutter', href: '#' },
+            { name: 'Android Development', href: '#' },
+            { name: 'İOS Development', href: '#' },
+            { name: 'React Native', href: '#' },
+            { name: 'Dart (programming language)', href: '#' },
+            { name: 'Swift', href: '#' },
+            { name: 'Kotlin', href: '#' },
+            { name: 'Mobile App Development', href: '#' },
+            { name: 'SwiftUI', href: '#' },
+            { name: '.NET MAUI', href: '#' },
+        ],
+    },
+    {
+        name: 'Game Development',
+        href: '#',
+        icon: SquaresPlusIcon,
+        subcategories: [
+            { name: 'Unreal Engine', href: '#' },
+            { name: 'Unity', href: '#' },
+            { name: 'Game Development Fundamentals', href: '#' },
+            { name: 'Godot', href: '#' },
+            { name: 'C# (programming language)', href: '#' },
+            { name: 'C++ (programming language)', href: '#' },
+            { name: '3D Game Development', href: '#' },
+            { name: '2D Game Development', href: '#' },
+            { name: 'Unreal Engine Blueprints', href: '#' },
+            { name: 'Blender', href: '#' },
+        ],
+    },
+    {
+        name: 'Entrepreneurship',
+        href: '#',
+        icon: SquaresPlusIcon,
+        subcategories: [
+            { name: 'Startup', href: '#' },
+            { name: 'Entrepreneurship Fundamentals', href: '#' },
+            { name: 'Business Fundamentals', href: '#' },
+            { name: 'Business Plan', href: '#' },
+            { name: 'Business Strategy', href: '#' },
+            { name: 'Online Business', href: '#' },
+            { name: 'Freelancing', href: '#' },
+            { name: 'Presentation', href: '#' },
+        ],
+    },
+    {
+        name: 'Artificial Intelligence',
+        href: '#',
+        icon: SquaresPlusIcon,
+        subcategories: [
+            { name: 'ChatGPT', href: '#' },
+            { name: 'ChatGPT for Software Developers', href: '#' },
+            { name: 'Generative AI for Software Developers - IBM', href: '#' },
+            { name: 'Generative AI: Foundation Models and Platforms - IBM', href: '#' },
+            { name: 'Generative AI: Business Transformation and Career Growth - IBM', href: '#' },
+            { name: 'Introduction to Generative AI Studio', href: '#' },
+            { name: 'Samsung AI for Career Growth and in Daily Life', href: '#' },
+        ],
+    },
+    {
+        name: 'Business & Finance',
+        href: '#',
+        icon: SquaresPlusIcon,
+        subcategories: [
+            { name: 'Future Finance', href: '#' },
+            { name: 'Digital Finance', href: '#' },
+            { name: 'Blockchain', href: '#' },
+            { name: 'Risk Management', href: '#' },
+            { name: 'Investment', href: '#' },
+            { name: 'Master of Business Administration (MBA)', href: '#' },
+            { name: 'Financial Management', href: '#' },
+            { name: 'Payments', href: '#' },
+            { name: 'Business Administration', href: '#' },
+            { name: 'Financial Analysis', href: '#' },
+            { name: 'Banking', href: '#' },
+            { name: 'Social Media Management', href: '#' },
+        ],
+    },
+    {
+        name: 'Personal Development',
+        href: '#',
+        icon: SquaresPlusIcon,
+        subcategories: [
+            { name: 'Life Coaching', href: '#' },
+            { name: 'Leadership', href: '#' },
+            { name: 'Personal Development', href: '#' },
+            { name: 'Mindfulness', href: '#' },
+            { name: 'Critical Thinking', href: '#' },
+            { name: 'Personal Transformation', href: '#' },
+            { name: 'Parenting', href: '#' },
+            { name: 'Stress Management', href: '#' },
+            { name: 'Meditation', href: '#' },
+            { name: 'Communication', href: '#' },
+        ],
+    },
+    {
+        name: 'Graphic Design & Illustration',
+        href: '#',
+        icon: SquaresPlusIcon,
+        subcategories: [
+            { name: 'Graphic Design', href: '#' },
+            { name: 'Adobe Photoshop', href: '#' },
+            { name: 'Adobe Lightroom', href: '#' },
+            { name: 'Adoba Illustrator', href: '#' },
+            { name: 'Canva', href: '#' },
+            { name: 'Painting', href: '#' },
+            { name: 'Adobe InDesign', href: '#' },
+            { name: 'Digital Painting', href: '#' },
+        ],
+    },
+    {
+        name: 'Digital Marketing',
+        href: '#',
+        icon: SquaresPlusIcon,
+        subcategories: [
+            { name: 'Digital Marketing and E-Commerce- FBA, Dropshipping, ETS…', href: '#' },
+            { name: 'Social Media Marketing -Meta, Instagram Marketing, TikTok Marketing/Shopping & Showcase → Rakip platformlarda yok!!!', href: '#' },
+            { name: 'Gemini', href: '#' },
+            { name: 'Google Analytics', href: '#' },
+            { name: 'Marketing Strategy', href: '#' },
+            { name: 'ChatGPT', href: '#' },
+            { name: 'Search Engine Optimization (SEO)', href: '#' },
+            { name: 'Digital Advertising - Google Ads…', href: '#' },
+            { name: 'Email Marketing', href: '#' },
+            { name: 'Copywriting', href: '#' },
+        ],
+    },
+    {
+        name: 'Arts and Humanities',
+        href: '#',
+        icon: SquaresPlusIcon,
+        subcategories: [
+            { name: 'Art - Art History, gender and art, society and art…', href: '#' },
+            { name: 'History', href: '#' },
+            { name: 'Music', href: '#' },
+            { name: 'Animation', href: '#' },
+            { name: 'Photography', href: '#' },
+            { name: 'Psychology- Neuro-Linguistic Programing (NLP), Cognitive Behavioral Therapy, ADHD…', href: '#' },
+            { name: 'Mindfulness', href: '#' },
+            { name: 'Religions', href: '#' },
+            { name: 'Logic', href: '#' },
+            { name: 'Meditation', href: '#' },
+        ],
+    },
+    {
+        name: 'Health & Fitness',
+        href: '#',
+        icon: SquaresPlusIcon,
+        subcategories: [
+            { name: 'General Health', href: '#' },
+            { name: 'Sports', href: '#' },
+            { name: 'Nutrition & Diet', href: '#' },
+            { name: 'Fitness', href: '#' },
+            { name: 'Mental Health', href: '#' },
+            { name: 'Yoga', href: '#' },
+            { name: 'Martial Arts & Self Defense', href: '#' },
+            { name: 'Meditation', href: '#' },
+            { name: 'Cognitive Behavioral Therapy (CBT)', href: '#' },
+            { name: 'Safety & First Aid', href: '#' },
+            { name: 'Dance', href: '#' },
+            { name: 'Medical', href: '#' },
+            { name: 'Medicine', href: '#' },
+            { name: 'Massage - Sports Massage', href: '#' },
+            { name: 'Spiritual Healing', href: '#' },
+        ],
+    },
+    {
+        name: 'Photography & Video',
+        href: '#',
+        icon: SquaresPlusIcon,
+        subcategories: [
+            { name: 'Photography', href: '#' },
+            { name: 'Digital Photography', href: '#' },
+            { name: 'Video Editing', href: '#' },
+            { name: 'Commercial Photography', href: '#' },
+            { name: 'Video Design', href: '#' },
+            { name: 'Final Cut Pro X Tutorial', href: '#' },
+            { name: 'Stock Photos - Generative AI, Video', href: '#' },
+        ],
+    },
+    {
+        name: 'Music',
+        href: '#',
+        icon: SquaresPlusIcon,
+        subcategories: [
+            { name: 'Instruments', href: '#' },
+            { name: 'Music Production', href: '#' },
+            { name: 'Music Techniques', href: '#' },
+            { name: 'Music Fundamentals', href: '#' },
+            { name: 'Music Software', href: '#' },
+            { name: 'Vocal', href: '#' },
+        ],
+    },
+    {
+        name: 'Academics',
+        href: '#',
+        icon: SquaresPlusIcon,
+        subcategories: [
+            { name: 'Engineering', href: '#' },
+            { name: 'Science', href: '#' },
+            { name: 'Test Prep - IELTS, TOEFL, SAT, TEOG-YKS etc.', href: '#' },
+            { name: 'Math', href: '#' },
+            { name: 'Teacher Training', href: '#' },
+            { name: 'Language', href: '#' },
+        ],
+    },
+    {
+        name: 'Sustainability',
+        href: '#',
+        icon: SquaresPlusIcon,
+        subcategories: [
+            { name: '17 SDGs Goals', href: '#' },
+        ],
+    },
+];
 
 
-export default function Header() {
-  const [top, setTop] = useState<boolean>(true);
-  const [cartItems, setCartItems] = useState<number>(0);
-  const [isMobileView, setIsMobileView] = useState<boolean>(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
+const callsToAction = [
+    { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
+    { name: 'Contact sales', href: '#', icon: PhoneIcon },
+];
 
-  // Sayfa aÅaÄÄ± kaydÄ±rÄ±ldÄ±ÄÄ±nda algÄ±la
-  const scrollHandler = () => {
-    window.pageYOffset > 10 ? setTop(false) : setTop(true);
-  };
+function classNames(...classes:any) {
+    return classes.filter(Boolean).join(' ');
+}
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+export default function Example() {
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
 
-  const toggleLanguageDropdown = () => {
-    setIsLanguageDropdownOpen(!isLanguageDropdownOpen);
-  };
+    useEffect(() => {
+        const onScroll = () => {
+            setIsScrolled(window.scrollY > 0);
+        };
 
-  useEffect(() => {
-    scrollHandler();
-    window.addEventListener('scroll', scrollHandler);
-    // TarayÄ±cÄ± boyutu deÄiÅtiÄinde kontrol et
-    const resizeHandler = () => {
-      setIsMobileView(window.innerWidth <= 894); // ÃrneÄin, 768px'den daha kÃ¼Ã§Ã¼kse mobil gÃ¶rÃ¼nÃ¼me geÃ§iÅ yap
-    };
+        window.addEventListener('scroll', onScroll);
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+        };
+    }, []);
 
-    resizeHandler(); // Sayfa yÃ¼klendiÄinde kontrol et
-    window.addEventListener('resize', resizeHandler);
-    return () => {
-      window.removeEventListener('scroll', scrollHandler);
-      window.removeEventListener('resize', resizeHandler);
-    };
+    return (
+        <header className={classNames("sticky top-0 z-50 transition-shadow", isScrolled ? "bg-white/90 backdrop-blur shadow-lg" : "bg-white")}>
+            <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-1 space-x-4" aria-label="Global">
+                <div className="flex shrink-0 font-bold text-3xl lg:flex-1">
+                    <Link href="/">
+                        <span className="text-orange-400 cursor-pointer">Ce</span>
+                    </Link>
+                    <Link href="/">
+                        <span className="text-orange-400">RR</span>
+                    </Link>
+                    <Link href="/">
+                        <span className="text-orange-400 cursor-pointer">oute</span>
+                    </Link>
+                </div>
+                <div className="flex lg:hidden">
+                    <button
+                        type="button"
+                        className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+                        onClick={() => setMobileMenuOpen(true)}
+                    >
+                        <span className="sr-only">Open main menu</span>
+                        <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+                    </button>
+                </div>
+                <Popover.Group className="hidden lg:flex space-x-5 mr-1">
+                    <Popover>
+                        <Popover.Button
+                            className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 mt-3"
+                        >
+                            Categories
+                            <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
+                        </Popover.Button>
 
-  }, [top]);
+                        <Transition
+                            as="div"
+                            enter="transition ease-out duration-200"
+                            enterFrom="opacity-0 translate-y-1"
+                            enterTo="opacity-100 translate-y-0"
+                            leave="transition ease-in duration-150"
+                            leaveFrom="opacity-100 translate-y-0"
+                            leaveTo="opacity-0 translate-y-1"
+                        >
+                            <Popover.Panel
+                                className="absolute left-0 top-full z-10 mt-3 overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5"
+                                style={{ width: '1300px', height: '8000px' }}
+                            >
+                                <div className="p-4">
+                                    <div className="grid grid-cols-6 gap-4">
+                                        {categories.map((category) => (
+                                            <Disclosure
+                                                as="div"
+                                                key={category.name}
+                                                className="group relative flex flex-col items-start gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+                                            >
+                                                <Disclosure.Button
+                                                    className="flex items-center gap-x-6 w-full"
+                                                    onClick={() => setSelectedCategory(category.name)}
+                                                >
+                                                    <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                                                        <category.icon className="h-6 w-6 text-gray-600 group-hover:text-orange-300" aria-hidden="true" />
+                                                    </div>
+                                                    <div className="flex-auto">
+                                                <span className="block font-semibold text-gray-900">
+                                                    {category.name}
+                                                </span>
+                                                    </div>
+                                                    <ChevronDownIcon className="h-5 w-5 text-gray-400 group-hover:text-orange-300" />
+                                                </Disclosure.Button>
+                                                <Disclosure.Panel className="pl-11 mt-2 space-y-2">
+                                                    {category.subcategories.map((subcategory) => (
+                                                        <a
+                                                            key={subcategory.name}
+                                                            href={subcategory.href}
+                                                            className="block text-gray-600 hover:text-gray-900"
+                                                        >
+                                                            {subcategory.name}
+                                                        </a>
+                                                    ))}
+                                                </Disclosure.Panel>
+                                            </Disclosure>
+                                        ))}
+                                    </div>
+                                </div>
+                            </Popover.Panel>
+                        </Transition>
+                    </Popover>
 
-  return (
-      <header
-          className={`fixed w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out ${!top ? 'bg-white backdrop-blur-sm shadow-lg' : ''}`}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-6">
-          <div className="flex items-center justify-between h-16 md:h-20">
-
-            {/* Site markasÄ± */}
-            <div className="shrink-0 mr-14 font-bold text-3xl left-align">
-              <Link href="/">
-                <span className="text-orange-400 cursor-pointer">Ce</span>
-              </Link>
-              <Link href="/">
-                <span className="text-orange-400">RR</span>
-              </Link>
-              <Link href="/">
-                <span className="text-orange-400 cursor-pointer">oute</span>
-              </Link>
-            </div>
-
-            {/* Kategori menÃ¼sÃ¼ */}
-            <nav className="hidden md:flex md:grow">
-              <ul className="flex justify-start mr- items-center space-x-6">
-                <li className="relative">
-                  <button onClick={toggleDropdown} className="flex items-center">
-                    <span className="mr-1">Categories</span>
-                    <FontAwesomeIcon icon={faChevronDown}/>
-                  </button>
-                  {isDropdownOpen && (
-                      <ul className="absolute top-full left- mt-2 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                        <li><Link href="/VideoList">Computer Science</Link></li>
-                        <li><Link href="/VideoList">Software Engineering</Link></li>
-                        <li><Link href="/VideoList">Art & Design</Link></li>
-                        <li><Link href="/VideoList">Marketing</Link></li>
-                        <li><Link href="/VideoList">Music</Link></li>
-                        <li><Link href="/VideoList">Health & Fitness</Link></li>
-                      </ul>
-                  )}
-                </li>
-              </ul>
+                    <Popover.Group className="hidden lg:flex space-x-12">
+                        <div className="relative mt-1 rounded-md shadow-sm">
+                            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                            </div>
+                            <input
+                                type="text"
+                                name="search"
+                                id="search"
+                                className="block w-full rounded-md border-gray-300 pl-10 pr-80 sm:text-sm"
+                                placeholder="Search"
+                            />
+                        </div>
+                    </Popover.Group>
+                </Popover.Group>
+                <div className="hidden lg:flex items-center space-x-12">
+                    <button className="p-4 text-black">
+                        <ShoppingCartIcon className="h-6 w-6" />
+                    </button>
+                </div>
+                <div className="hidden lg:flex lg:flex-1 lg:justify-start space-x-8">
+                    <Link href="/signin" className="text-sm font-semibold leading-6 text-white bg-orange-400 rounded-md px-3 py-1">
+                        Log In <span aria-hidden="true"></span>
+                    </Link>
+                    <Link href="/signup" className="text-sm font-semibold leading-6 text-white bg-orange-400 rounded-md px-3 py-1">
+                        Sign Up <span aria-hidden="true">&rarr;</span>
+                    </Link>
+                </div>
+                <div className="hidden lg:flex space-x-8">
+                    <div className="relative">
+                        <Popover className="relative">
+                            <Popover.Button
+                                className="flex items-center space-x-1 text-sm font-semibold leading-6 text-gray-900"
+                            >
+                                <GlobeAltIcon className="h-6 w-6" />
+                                <span></span>
+                            </Popover.Button>
+                            <Transition
+                                as={Fragment}
+                                enter="transition ease-out duration-200"
+                                enterFrom="opacity-0 scale-95"
+                                enterTo="opacity-100 scale-100"
+                                leave="transition ease-in duration-150"
+                                leaveFrom="opacity-100 scale-100"
+                                leaveTo="opacity-0 scale-95"
+                            >
+                                <Popover.Panel
+                                    static
+                                    className="absolute left-0 w-48 mt-2 origin-top-right bg-white divide-y divide-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                >
+                                    <div className="py-1">
+                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            English
+                                        </a>
+                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            Spanish
+                                        </a>
+                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            French
+                                        </a>
+                                    </div>
+                                </Popover.Panel>
+                            </Transition>
+                        </Popover>
+                    </div>
+                </div>
             </nav>
 
-            {/* Arama Ã§ubuÄu */}
-            <div className="relative flex items-center">
-              <input
-                  id="searchBar"
-                  type="text"
-                  placeholder="Search..."
-                  className="bg-gray-100 border border-gray-300 px-25 py-2 pr-10 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300 focus:border-orange-300"
-                  style={{width: '500px'}}
-              />
-              <button
-                  onClick={() => {
-                    const searchBar = document.getElementById('searchBar');
-                    if (searchBar) {
-                      searchBar.focus();
-                    }
-                  }}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 focus:outline-none"
-              >
-                <FontAwesomeIcon icon={faSearch}/>
-              </button>
-            </div>
-
-            <div className="flex-grow"></div>
-
-            {/* BoÅluk bÄ±rakmak iÃ§in */}
-            <div className="flex items-center justify-end space-x-4">
-              {/* AlÄ±ÅveriÅ Sepeti */}
-              <Link href="/cart" className={`flex items-center ${isMobileView ? 'hidden' : ''}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101"
-                     className="h-7 w-7 text-gray-600 hover:text-gray-900" fill="currentColor">
-                  <path
-                      d="M84.1 28.5c-.5-.6-1.2-.9-1.9-.9h-61v-8.8c0-1.3-1.1-2.4-2.4-2.4-1.3 0-2.4 1.1-2.4 2.4v50c0 1.3 1.1 2.4 2.4 2.4h2.8c-1.9 3.5-1.5 7.9 1.5 10.9 1.7 1.7 4 2.7 6.4 2.7s4.7-.9 6.4-2.7c1.7-1.7 2.7-4 2.7-6.4 0-1.6-.4-3.1-1.2-4.4h11.3c-1.9 3.5-1.5 7.9 1.5 10.9 1.7 1.7 4 2.7 6.4 2.7 2.4 0 4.7-.9 6.4-2.7 1.7-1.7 2.7-4 2.7-6.4 0-1.6-.4-3.1-1.2-4.4h3.1c1.3 0 2.4-1.1 2.4-2.4 0-1.3-1.1-2.4-2.4-2.4H21.2v-4.7h53c1.1 0 2-.7 2.3-1.8l8-29.3c.2-1 0-1.7-.4-2.3zM32.6 78.6c-1.6 1.6-4.5 1.6-6.1 0-1.7-1.7-1.7-4.4 0-6.1.8-.8 1.9-1.3 3.1-1.3 1.2 0 2.2.4 3.1 1.3.8.8 1.3 1.9 1.3 3.1s-.5 2.2-1.4 3zm27.2 0c-1.6 1.6-4.5 1.6-6.1 0-1.7-1.7-1.7-4.4 0-6.1.8-.8 1.9-1.3 3.1-1.3 1.2 0 2.2.4 3.1 1.3.8.8 1.3 1.9 1.3 3.1s-.5 2.2-1.4 3zm12.5-21.8H21.2V32.3H79l-6.7 24.5z"></path>
-                </svg>
-
-                <span className="ml-1 text-sm text-gray-600">{cartItems}</span>
-              </Link>
-
-              {/* Sign in ve Sign up */}
-              <Link href="/signin"
-                    className={`font-medium text-gray-600 hover:text-gray-900 px-7 py-3 flex items-center transition duration-150 ease-in-out ${isMobileView ? 'hidden' : ''}`}>Log
-                In</Link>
-              <Link href="/signup"
-                    className={`btn-sm text-white bg-orange-400 ml-4 hover:bg-orange-300 ${isMobileView ? 'hidden' : ''}`}>
-                <span>Sign Up</span>
-                <svg className="w-3 h-3 fill-current text-white shrink-0 ml-2 -mr-1" viewBox="0 0 12 12"
-                     xmlns="http://www.w3.org/2000/svg">
-                  <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z"
-                        fillRule="nonzero"/>
-                </svg>
-              </Link>
-
-              <div className="relative">
-                <button onClick={toggleLanguageDropdown} className="absolute  mt-[-12px] left-8 flex items-center">
-                  <FontAwesomeIcon icon={faGlobe} className="text-gray-600" style={{ fontSize: '1.5em' }} />
-                </button>
-                {isLanguageDropdownOpen && (
-                    <ul className="absolute top-full left-1 mt-5 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                      <li>
-                        <button onClick={toggleLanguageDropdown}
-                                className="text-gray-800 hover:text-orange-400 py-2 px-4 block whitespace-no-wrap">English
+            <Dialog className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+                <div className="fixed inset-0 z-50" />
+                <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+                    <div className="flex items-center justify-between">
+                        <a href="#" className="-m-1.5 p-1.5">
+                            <button className="p-4 text-gray-800">
+                                <ShoppingCartIcon className="h-6 w-6" />
+                            </button>
+                        </a>
+                        <button
+                            type="button"
+                            className="-m-2.5 rounded-md p-2.5 text-gray-700"
+                            onClick={() => setMobileMenuOpen(false)}
+                        >
+                            <span className="sr-only">Close menu</span>
+                            <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                         </button>
-                      </li>
-                      <li>
-                        <button onClick={toggleLanguageDropdown}
-                                className="text-gray-800 hover:text-orange-400 py-2 px-4 block whitespace-no-wrap">Turkish
-                        </button>
-                      </li>
-                      <li>
-                        <button onClick={toggleLanguageDropdown}
-                                className="text-gray-800 hover:text-orange-400 py-2 px-4 block whitespace-no-wrap">Spanish
-                        </button>
-                      </li>
-                      <li>
-                        <button onClick={toggleLanguageDropdown}
-                                className="text-gray-800 hover:text-orange-400 py-2 px-4 block whitespace-no-wrap">French
-                        </button>
-                      </li>
-                      {/* Add more languages as needed */}
-                    </ul>
-                )}
-              </div>
-            </div>
-
-
-            {isMobileView && <MobileMenu/>}
-          </div>
-        </div>
-      </header>
-  );
+                    </div>
+                    <div className="flex items-center mt-6">
+                        <div className="relative flex-1">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                            </div>
+                            <input
+                                type="text"
+                                className="block w-full pl-10 pr-3 py-2 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                placeholder="Search"
+                            />
+                        </div>
+                    </div>
+                    <div className="mt-6 flow-root space-y-2">
+                        <div className="-my-6 divide-y divide-gray-500/10">
+                            <div className="space-y-2 py-6">
+                                <Disclosure as="div" className="-mx-3">
+                                    {({ open }) => (
+                                        <>
+                                            <Disclosure.Button
+                                                className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                            >
+                                                Categories
+                                                <ChevronDownIcon className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')} aria-hidden="true" />
+                                            </Disclosure.Button>
+                                            <Disclosure.Panel className="mt-2 space-y-2">
+                                                {[...categories, ...callsToAction].map((item) => (
+                                                    <Disclosure.Button
+                                                        key={item.name}
+                                                        as="a"
+                                                        href={item.href}
+                                                        className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                                    >
+                                                        {item.name}
+                                                    </Disclosure.Button>
+                                                ))}
+                                            </Disclosure.Panel>
+                                        </>
+                                    )}
+                                </Disclosure>
+                            </div>
+                            <div className="py-6">
+                                <a
+                                    href="/signin"
+                                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                >
+                                    Log In
+                                </a>
+                                <a
+                                    href="/signup"
+                                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                >
+                                    Sign Up
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </Dialog.Panel>
+            </Dialog>
+        </header>
+    );
 }

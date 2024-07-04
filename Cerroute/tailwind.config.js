@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      blur: {
+        sm: '4px',
+      },
       colors: {
         gray: {
           100: '#FBFBFB',
@@ -127,7 +130,13 @@ module.exports = {
       },
     },
   },
+  variants: {
+    extend: {
+      blur: ['group-hover'],
+    }
+  },
   plugins: [
     require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
   ],
 };

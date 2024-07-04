@@ -137,7 +137,7 @@ export default function Categories() {
         <div className="bg-white">
             {/* Mobile menu */}
             <Transition.Root show={open} as={Fragment}>
-                <Dialog className="relative z-40 lg:hidden" onClose={setOpen}>
+                <Dialog  className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10" onClose={setOpen}>
                     <Transition.Child
                         as={Fragment}
                         enter="transition-opacity ease-linear duration-300"

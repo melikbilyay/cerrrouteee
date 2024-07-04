@@ -1,4 +1,4 @@
-/* eslint-disable no-plusplus */
+
 class Wave {
     private waveLength: number[];
 
