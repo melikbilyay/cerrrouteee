@@ -1,5 +1,6 @@
 import VideoThumb from '@/public/images/hero-image.png'
 import ModalVideo from '@/components/modal-video'
+import Voice from '@/components/voice';
 import Link from "next/link";
 
 export default function Hero() {
@@ -27,6 +28,7 @@ export default function Hero() {
                   <div>
                     <a className="btn text-white bg-gray-900 hover:bg-gray-800 w-full sm:w-auto sm:ml-4" href="#0">Learn more</a>
                   </div>
+                  
                 </div>
               </div>
             </div>
@@ -42,7 +44,9 @@ export default function Hero() {
                 videoHeight={1080} />
 
           </div>
-
+          <div>
+                  <Voice /> {/* Voice bileşenini buraya ekledik */}
+                </div>
         </div>
       </section>
   )
