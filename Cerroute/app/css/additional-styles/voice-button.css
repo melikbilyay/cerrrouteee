@@ -1,6 +1,6 @@
 .floating-button {
     position: fixed;
-    bottom: 120px;
+    bottom: 130px;
     right: 22px; /* Butonu sağ alt köşeye yerleştirir */
     background-color: #FFA500; /* Buton rengi */
     color: white;
@@ -19,5 +19,5 @@
   
   .floating-button:hover {
     background-color: #FFA500; /* Hover rengi */
-    transform: scale(1.1); /* Butonu %20 büyütür */
+    transform: scale(1.15); /* Butonu %20 büyütür */
   }
