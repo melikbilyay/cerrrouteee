@@ -1,6 +1,7 @@
 'use client'
 import { useState, useRef, useEffect } from "react";
 import Dropdown from "./Dropdown";
+import Link from "next/link";
 
 type MenuItemProps = {
     items: {
@@ -38,14 +39,17 @@ const MenuItem = ({ items, depthLevel }: MenuItemProps) => {
     };
 
     return (
+
         <li
             className="menu-items"
             ref={ref}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >
+
             {items.submenu ? (
                 <>
+
                     <button
                         type="button"
                         aria-haspopup="menu"
@@ -59,6 +63,7 @@ const MenuItem = ({ items, depthLevel }: MenuItemProps) => {
                             <span className="arrow" />
                         )}
                     </button>
+
                     <Dropdown
                         depthLevel={depthLevel}
                         submenus={items.submenu}
@@ -66,7 +71,7 @@ const MenuItem = ({ items, depthLevel }: MenuItemProps) => {
                     />
                 </>
             ) : (
-                <a href="/#">{items.title}</a>
+                <a href="/courses">{items.title}</a>
             )}
         </li>
     );
