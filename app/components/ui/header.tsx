@@ -146,11 +146,19 @@ export default function Example() {
                                 <div className="absolute -left-14 mt-2 w-48 bg-white border rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                     <div className="py-1">
                                         <button
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                                        >
+                                            <Link href="/profile">
+                                                <span>My Profile</span>
+                                            </Link>
+                                        </button>
+                                        <button
                                             onClick={handleLogout}
                                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                                         >
                                             Logout
                                         </button>
+
                                     </div>
                                 </div>
                             )}

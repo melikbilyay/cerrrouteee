@@ -8,8 +8,8 @@ const useFirebaseAuth = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            setUser(user);
+        const unsubscribe = auth.onAuthStateChanged(currentUser => {
+            setUser(currentUser);
             setLoading(false);
         });
 
@@ -35,7 +35,7 @@ const useFirebaseAuth = () => {
     };
 
     return {
-        user,
+        user, // Assuming `user` can initially be `null`, which is handled in the component
         loading,
         signIn,
         signOut
