@@ -12,13 +12,17 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSignUp = async (e) => {
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-
-    } catch (error) {
-      setError(error.message);
+      // Redirect to the desired page after successful sign-up
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     }
   };
 
@@ -26,8 +30,12 @@ export default function SignUp() {
     try {
       await signInWithPopup(auth, googleProvider);
       // Redirect to the desired page after successful sign-in
-    } catch (error) {
-      setError(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     }
   };
 

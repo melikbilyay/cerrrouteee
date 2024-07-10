@@ -10,24 +10,34 @@ export default function SignIn() {
   const [error, setError] = useState("");
  // useRouter hookunu kullanarak router'ı alıyoruz
 
-  const handleSignIn = async (e:any) => {
+  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-   // Başarılı giriş sonrası istenen sayfaya yönlendirme
-    } catch (error) {
-      setError(error.message);
+      // Başarılı giriş sonrası istenen sayfaya yönlendirme
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     }
   };
+
 
   const handleGoogleSignIn = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-     // Başarılı giriş sonrası istenen sayfaya yönlendirme
-    } catch (error) {
-      setError(error.message);
+      // Başarılı giriş sonrası istenen sayfaya yönlendirme
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     }
   };
+
 
   return (
       <section className="bg-gradient-to-b from-gray-100 to-white">

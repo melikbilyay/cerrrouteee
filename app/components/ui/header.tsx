@@ -3,29 +3,31 @@
 import { Fragment, useEffect, useState, useRef } from 'react';
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { GlobeAltIcon, ShoppingCartIcon } from '@heroicons/react/20/solid';
+import { ChevronDownIcon, GlobeAltIcon, ShoppingCartIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 import useFirebaseAuth from '../../hook/useFirebaseAuth'; // Adjust the path as per your project structure
 import Navbar from './Navbar';
 import Cart from './../Cart';
-import { UserCircleIcon } from "@heroicons/react/16/solid";
 
-function classNames(...classes) {
+function classNames(...classes: any) {
     return classes.filter(Boolean).join(' ');
 }
-
+interface User {
+    displayName?: string;
+}
 export default function Example() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const { user, loading, signIn, signOut } = useFirebaseAuth(); // Destructure the required functions from the hook
-    const dropdownRef = useRef(null);
-    const hoverTimeoutRef = useRef(null);
+    const { user, signOut } = useFirebaseAuth() as { user: User | null; signOut: () => Promise<void> };
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
     const [isCartOpen, setIsCartOpen] = useState(false);
 
     const handleCartToggle = () => {
         setIsCartOpen(!isCartOpen);
     };
+
     useEffect(() => {
         const onScroll = () => {
             setIsScrolled(window.scrollY > 0);
@@ -38,8 +40,8 @@ export default function Example() {
     }, []);
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
                 setIsDropdownOpen(false);
             }
         };
@@ -50,17 +52,6 @@ export default function Example() {
         };
     }, []);
 
-    const handleProfileMouseEnter = () => {
-        hoverTimeoutRef.current = setTimeout(() => {
-            setIsDropdownOpen(true);
-        }, 100); // Adjust delay as needed
-    };
-
-    const handleProfileMouseLeave = () => {
-        clearTimeout(hoverTimeoutRef.current);
-        setIsDropdownOpen(false);
-    };
-
     const handleLogout = async () => {
         try {
             await signOut();
@@ -69,6 +60,7 @@ export default function Example() {
             console.error('Error logging out:', error);
         }
     };
+
     const handleProfileClick = () => {
         setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown visibility
     };
@@ -117,7 +109,7 @@ export default function Example() {
                 </Popover.Group>
                 <div className="flex items-center space-x-12">
                     <button
-                        className="p-2   "
+                        className="p-2"
                         onClick={handleCartToggle}
                     >
                         <ShoppingCartIcon className="colo h-6 w-6 text-orange-400" />
@@ -125,10 +117,8 @@ export default function Example() {
 
                     {/* Cart Component */}
                     {isCartOpen && <Cart onClose={() => setIsCartOpen(false)} />}
-
                 </div>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-start space-x-8">
-                    {/* Conditional rendering of login and signup links */}
                     {!user ? (
                         // Display login and signup links
                         <>
@@ -140,11 +130,9 @@ export default function Example() {
                             </Link>
                         </>
                     ) : (
-
                         <div className="relative left-14" ref={dropdownRef}>
                             <button
                                 onClick={handleProfileClick}
-
                                 className="text-sm font-semibold leading-6 text-gray-900"
                             >
                                 {user.displayName
@@ -153,10 +141,8 @@ export default function Example() {
                                         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                                         .join(' ')
                                     : ''}
-
                             </button>
                             {isDropdownOpen && (
-
                                 <div className="absolute -left-14 mt-2 w-48 bg-white border rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                     <div className="py-1">
                                         <button
