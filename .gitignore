@@ -1,0 +1,15 @@
+.vercel
+node_modules/
+
+# .vscode
+.vscode/
+
+# macOS
+.DS_Store
+
+# npm debugging logs
+npm-debug.log*
+
+# Yarn integrity file
+yarn.lock
+.next
