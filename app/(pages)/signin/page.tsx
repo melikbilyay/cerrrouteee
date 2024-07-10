@@ -10,7 +10,7 @@ export default function SignIn() {
   const [error, setError] = useState("");
  // useRouter hookunu kullanarak router'ı alıyoruz
 
-  const handleSignIn = async (e) => {
+  const handleSignIn = async (e:any) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -23,7 +23,7 @@ export default function SignIn() {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      router.push("/"); // Başarılı giriş sonrası istenen sayfaya yönlendirme
+     // Başarılı giriş sonrası istenen sayfaya yönlendirme
     } catch (error) {
       setError(error.message);
     }
