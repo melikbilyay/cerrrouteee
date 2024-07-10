@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from 'next/link';
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "../firebaseConfig";
+import { auth, googleProvider } from "../../firebaseConfig";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");

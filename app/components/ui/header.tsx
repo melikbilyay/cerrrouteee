@@ -1,34 +1,25 @@
-'use client'
+'use client';
 
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState, useRef } from 'react';
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react';
-import {
-    ArrowPathIcon,
-    Bars3Icon,
-    ChartPieIcon,
-    CursorArrowRaysIcon,
-    FingerPrintIcon,
-    SquaresPlusIcon,
-    XMarkIcon,
-    MagnifyingGlassIcon
-} from '@heroicons/react/24/outline';
-import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid';
-import Link from 'next/link';
+import { Bars3Icon, XMarkIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { GlobeAltIcon, ShoppingCartIcon } from '@heroicons/react/20/solid';
+import Link from 'next/link';
+import useFirebaseAuth from '../../hook/useFirebaseAuth'; // Adjust the path as per your project structure
 import Navbar from './Navbar';
+import { UserCircleIcon } from "@heroicons/react/16/solid";
 
-
-
-
-
-
-function classNames(...classes:any) {
+function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
 
 export default function Example() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const { user, loading, signIn, signOut } = useFirebaseAuth(); // Destructure the required functions from the hook
+    const dropdownRef = useRef(null);
+    const hoverTimeoutRef = useRef(null);
 
     useEffect(() => {
         const onScroll = () => {
@@ -40,6 +31,42 @@ export default function Example() {
             window.removeEventListener('scroll', onScroll);
         };
     }, []);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsDropdownOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+    const handleProfileMouseEnter = () => {
+        hoverTimeoutRef.current = setTimeout(() => {
+            setIsDropdownOpen(true);
+        }, 100); // Adjust delay as needed
+    };
+
+    const handleProfileMouseLeave = () => {
+        clearTimeout(hoverTimeoutRef.current);
+        setIsDropdownOpen(false);
+    };
+
+    const handleLogout = async () => {
+        try {
+            await signOut();
+            setIsDropdownOpen(false); // Close dropdown after logout
+        } catch (error) {
+            console.error('Error logging out:', error);
+        }
+    };
+    const handleProfileClick = () => {
+        setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown visibility
+    };
 
     return (
         <header className={classNames("sticky top-0 z-50 transition-shadow", isScrolled ? "bg-white/90 backdrop-blur shadow-lg" : "bg-white")}>
@@ -66,40 +93,75 @@ export default function Example() {
                     </button>
                 </div>
                 <Popover.Group className="hidden lg:flex space-x-5 mr-1">
-
-                    <Navbar/>
+                    {/* Render Navbar content here */}
+                    <Navbar />
+                    {/* Search bar */}
                     <div className="flex items-center mt-1">
                         <div className="relative flex-1">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true"/>
+                                <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                             </div>
                             <input
                                 type="text"
-                                style={{ width: '600px', border: '1px solid #ccc' }} // Örnek olarak genişliği 100% - 1.5rem olarak belirttik
+                                style={{ width: '600px', border: '1px solid #ccc' }}
                                 className="pl-10 pr-3 py-2 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 placeholder="Search"
-
                             />
                         </div>
                     </div>
-
-
                 </Popover.Group>
-                <div className="hidden lg:flex items-center space-x-12">
-                    <button className="p-4 text-black">
+                <div className="flex items-center space-x-12">
+                    <button className="p-4 text-gray-800">
                         <ShoppingCartIcon className="h-6 w-6"/>
                     </button>
+
                 </div>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-start space-x-8">
-                    <Link href="/signin"
-                          className="text-sm font-semibold leading-6 text-white bg-orange-400 rounded-md px-3 py-1">
-                        Log In <span aria-hidden="true"></span>
-                    </Link>
-                    <Link href="/signup" className="text-sm font-semibold leading-6 text-white bg-orange-400 rounded-md px-3 py-1">
-                        Sign Up <span aria-hidden="true">&rarr;</span>
-                    </Link>
+                    {/* Conditional rendering of login and signup links */}
+                    {!user ? (
+                        // Display login and signup links
+                        <>
+                            <Link href="/signin" className="text-sm font-semibold leading-6 text-white bg-orange-400 rounded-md px-3 py-1">
+                                Log In <span aria-hidden="true"></span>
+                            </Link>
+                            <Link href="/signup" className="text-sm font-semibold leading-6 text-white bg-orange-400 rounded-md px-3 py-1">
+                                Sign Up <span aria-hidden="true">&rarr;</span>
+                            </Link>
+                        </>
+                    ) : (
+                        // User is logged in, show dropdown menu
+                        <div className="relative" ref={dropdownRef}>
+                            <button
+                                onClick={handleProfileClick}
+
+                                className="text-sm font-semibold leading-6 text-gray-900"
+                            >
+                                {user.displayName
+                                    ? user.displayName
+                                        .split(' ')
+                                        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                                        .join(' ')
+                                    : ''}
+
+                            </button>
+                            {isDropdownOpen && (
+
+                                <div className="absolute -left-14 mt-2 w-48 bg-white border rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <div className="py-1">
+                                        <button
+                                            onClick={handleLogout}
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                                        >
+                                            Logout
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
                 <div className="hidden lg:flex space-x-8">
+                    {/* Language selection dropdown */}
                     <div className="relative">
                         <Popover className="relative">
                             <Popover.Button
@@ -139,6 +201,7 @@ export default function Example() {
                 </div>
             </nav>
 
+            {/* Mobile menu */}
             <Dialog className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
                 <div className="fixed inset-0 z-50" />
                 <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
@@ -181,7 +244,6 @@ export default function Example() {
                                                 Categories
                                                 <ChevronDownIcon className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')} aria-hidden="true" />
                                             </Disclosure.Button>
-
                                         </>
                                     )}
                                 </Disclosure>

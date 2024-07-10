@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from 'next/link';
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "../firebaseConfig";
+import { auth, googleProvider } from "../../firebaseConfig";
 
 
 
@@ -16,7 +16,7 @@ export default function SignUp() {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      
+
     } catch (error) {
       setError(error.message);
     }
