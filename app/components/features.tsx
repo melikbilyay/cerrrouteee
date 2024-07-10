@@ -112,7 +112,6 @@ export default function Features() {
                     <Transition
                         show={tab === 1}
                         appear={true}
-                        className="w-full"
                         enter="transition ease-in-out duration-700 transform order-first"
                         enterFrom="opacity-0 translate-y-16"
                         enterTo="opacity-100 translate-y-0"
