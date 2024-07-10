@@ -1,6 +1,12 @@
 import MenuItem from "./MenuItem";
 
-const Dropdown = ({ submenus, dropdown, depthLevel }) => {
+type DropdownProps = {
+    submenus: Array<any>; // Eğer `submenus`un içeriğini biliyorsanız, `any` yerine uygun bir tür kullanın
+    dropdown: boolean;
+    depthLevel: number;
+};
+
+const Dropdown = ({ submenus, dropdown, depthLevel }: DropdownProps) => {
     depthLevel = depthLevel + 1;
     const dropdownClass = depthLevel > 1 ? "dropdown-submenu" : "";
 

@@ -54,28 +54,23 @@ export default function ModalVideo({
           <Dialog initialFocus={videoRef} onClose={() => setModalOpen(false)}>
 
             {/* Modal backdrop */}
-            <Transition.Child
-                className="fixed inset-0 z-[99999] bg-black bg-opacity-75 transition-opacity"
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="transition ease-out duration-100"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-                aria-hidden="true"
-            />
+              <Transition.Child
+                  // @ts-ignore
+                  className="fixed inset-0 z-[99999] bg-black bg-opacity-75 transition-opacity"
+                  enter="transition ease-out duration-200"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+              />
             {/* End: Modal backdrop */}
 
             {/* Modal dialog */}
-            <Transition.Child
-                className="fixed inset-0 z-[99999] overflow-hidden flex items-center justify-center transform px-4 sm:px-6"
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ttransition ease-out duration-200"
-                leaveFrom="oopacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-            >
+              <Transition.Child
+                  // @ts-ignore
+                  className="fixed inset-0 z-[99999] bg-black bg-opacity-75 transition-opacity"
+                  enter="transition ease-out duration-200"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+              >
               <div className="max-w-6xl mx-auto h-full flex items-center">
                 <Dialog.Panel className="w-full max-h-full aspect-video bg-black overflow-hidden">
                   <video ref={videoRef} width={videoWidth} height={videoHeight} loop controls>

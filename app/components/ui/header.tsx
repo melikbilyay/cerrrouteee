@@ -78,7 +78,7 @@ export default function Example() {
                                 style={{ width: '600px', border: '1px solid #ccc' }} // Örnek olarak genişliği 100% - 1.5rem olarak belirttik
                                 className="pl-10 pr-3 py-2 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 placeholder="Search"
-                                border="gray-300"
+
                             />
                         </div>
                     </div>

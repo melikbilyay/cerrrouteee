@@ -1,13 +1,21 @@
 'use client'
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Dropdown from "./Dropdown";
 
-const MenuItem = ({ items, depthLevel }) => {
+type MenuItemProps = {
+    items: {
+        title: string;
+        submenu?: Array<any>; // Eğer `submenu` öğelerinin içeriğini biliyorsanız, `any` yerine uygun bir tür kullanın
+    };
+    depthLevel: number;
+};
+
+const MenuItem = ({ items, depthLevel }: MenuItemProps) => {
     const [dropdown, setDropdown] = useState(false);
-    let ref = useRef();
+    let ref = useRef<HTMLLIElement>(null);
 
     useEffect(() => {
-        const handler = (event) => {
+        const handler = (event:any) => {
             if (dropdown && ref.current && !ref.current.contains(event.target)) {
                 setDropdown(false);
             }
