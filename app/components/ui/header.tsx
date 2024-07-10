@@ -7,6 +7,7 @@ import { GlobeAltIcon, ShoppingCartIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 import useFirebaseAuth from '../../hook/useFirebaseAuth'; // Adjust the path as per your project structure
 import Navbar from './Navbar';
+import Cart from './../Cart';
 import { UserCircleIcon } from "@heroicons/react/16/solid";
 
 function classNames(...classes) {
@@ -20,7 +21,11 @@ export default function Example() {
     const { user, loading, signIn, signOut } = useFirebaseAuth(); // Destructure the required functions from the hook
     const dropdownRef = useRef(null);
     const hoverTimeoutRef = useRef(null);
+    const [isCartOpen, setIsCartOpen] = useState(false);
 
+    const handleCartToggle = () => {
+        setIsCartOpen(!isCartOpen);
+    };
     useEffect(() => {
         const onScroll = () => {
             setIsScrolled(window.scrollY > 0);
@@ -111,9 +116,15 @@ export default function Example() {
                     </div>
                 </Popover.Group>
                 <div className="flex items-center space-x-12">
-                    <button className="p-4 text-gray-800">
-                        <ShoppingCartIcon className="h-6 w-6"/>
+                    <button
+                        className="p-2   "
+                        onClick={handleCartToggle}
+                    >
+                        <ShoppingCartIcon className="colo h-6 w-6 text-orange-400" />
                     </button>
+
+                    {/* Cart Component */}
+                    {isCartOpen && <Cart onClose={() => setIsCartOpen(false)} />}
 
                 </div>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-start space-x-8">
@@ -129,8 +140,8 @@ export default function Example() {
                             </Link>
                         </>
                     ) : (
-                        // User is logged in, show dropdown menu
-                        <div className="relative" ref={dropdownRef}>
+
+                        <div className="relative left-14" ref={dropdownRef}>
                             <button
                                 onClick={handleProfileClick}
 
@@ -181,7 +192,7 @@ export default function Example() {
                             >
                                 <Popover.Panel
                                     static
-                                    className="absolute left-0 w-48 mt-2 origin-top-right bg-white divide-y divide-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                    className="absolute -left-7 w-30 mt-2 origin-top-right bg-white divide-y divide-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                                 >
                                     <div className="py-1">
                                         <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
