@@ -1,17 +1,15 @@
-import VideoThumb from '/public/images/hero-image.png'
-import ModalVideo from '../components/modal-video'
-
+import VideoThumb from '/public/images/hero-image.png';
+import ModalVideo from '../components/modal-video';
+import Voice from '../components/voice';
 
 export default function Hero() {
-
   return (
       <section className="relative">
-
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           {/* Hero content */}
           <div className="pt-20 pb-12 md:pt-20 md:pb-20">
             {/* Section header */}
-            <div className="text-center pb-12  md:pb-16">
+            <div className="text-center pb-12 md:pb-16">
               <h1 className="text-6xl md:text-8xl font-extrabold leading-tighter tracking-tighter mb-4"
                   data-aos="zoom-y-out">Your future your <span
                   className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-orange-300">Route</span>
@@ -45,8 +43,8 @@ export default function Hero() {
                 videoHeight={1080}/>
 
           </div>
-
         </div>
+        <Voice /> {/* Voice bileşenini buraya ekledik */}
       </section>
-  )
+  );
 }
