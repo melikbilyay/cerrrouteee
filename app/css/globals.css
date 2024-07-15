@@ -74,10 +74,6 @@ nav ul li ul li:hover {
 }
 
 
-
-
-
-
 .menus {
   display: flex;
   list-style: none;
@@ -85,7 +81,8 @@ nav ul li ul li:hover {
 
 .menu-items {
   position: relative;
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: 600; /* Use font-weight for semibold */
 }
 
 .menu-items a {

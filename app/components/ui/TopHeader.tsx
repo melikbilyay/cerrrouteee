@@ -27,7 +27,7 @@ export default function TopHeader() {
     }, []);
 
     // Function to handle link clicks and update pathname
-    const handleLinkClick = (path) => {
+    const handleLinkClick = (path:any) => {
         setPathname(path);
     };
 
