@@ -75,13 +75,7 @@ export default function Example() {
                 <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-1 space-x-4" aria-label="Global">
                     <div className="flex shrink-0  font-semibold text-4xl lg:flex-1">
                         <Link href="/">
-                            <span className="text-orange-400 cursor-pointer">Ce</span>
-                        </Link>
-                        <Link href="/">
-                            <span className="text-orange-400">RR</span>
-                        </Link>
-                        <Link href="/">
-                            <span className="text-orange-400 cursor-pointer">oute</span>
+                            <span className="text-orange-400 cursor-pointer">CeRRoute</span>
                         </Link>
                     </div>
                     <div className="flex lg:hidden">
