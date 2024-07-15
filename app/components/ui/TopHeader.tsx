@@ -39,7 +39,7 @@ export default function TopHeader() {
                         className={`text-m font-semibold text-white ${pathname === '/' ? 'border-b-2 border-white' : ''}`}
                         onClick={() => handleLinkClick('/')}
                     >
-                        Bireysel
+                     Individual
                     </span>
                 </Link>
                 <Link href="/kurumsal">
@@ -47,7 +47,7 @@ export default function TopHeader() {
                         className={`text-m font-semibold text-white ${pathname === '/kurumsal' ? 'border-b-2 border-white' : ''}`}
                         onClick={() => handleLinkClick('/kurumsal')}
                     >
-                        Kurumsal
+                        Corporate
                     </span>
                 </Link>
             </div>
