@@ -13,8 +13,9 @@ interface Course {
     duration: string;
     category: string;
     level: string;
-    photoURL?: string; // Make URL field optional if not always present
-    // Add optional language field
+    photoURL?: string;
+    url?: string; // Make URL field optional if not always present
+    language?: string; // Add optional language field
 }
 
 const CoursesPage = () => {
@@ -43,7 +44,8 @@ const CoursesPage = () => {
                         duration: data.duration || "",
                         category: data.category || "",
                         level: data.level || "",
-                        photoURL: data.photoURL || "" // Handle optional URL field correctly
+                        photoURL: data.photoURL || "", // Handle optional URL field correctly
+                        url: data.url || "" // Handle optional URL field correctly
                     };
                 });
                 setCourses(coursesData);
@@ -70,7 +72,8 @@ const CoursesPage = () => {
         course.instructor.toLowerCase().includes(filter.instructor.toLowerCase()) &&
         course.duration.toLowerCase().includes(filter.duration.toLowerCase()) &&
         (filter.category ? course.category === filter.category : true) &&
-        (filter.level ? course.level === filter.level : true)
+        (filter.level ? course.level === filter.level : true) &&
+        (filter.language ? course.language === filter.language : true)
     );
 
     return (
@@ -143,15 +146,15 @@ const CoursesPage = () => {
                     <div>
                         <label className="block mb-2 font-medium">Language</label>
                         <select
-                            name="level"
+                            name="language"
                             value={filter.language}
                             onChange={handleFilterChange}
                             className="w-full p-2 border border-gray-300 rounded"
                         >
                             <option value="">All Languages</option>
-                            <option value="Beginner">English</option>
-                            <option value="Intermediate">Türkçe</option>
-                            <option value="Advanced">Deutsch</option>
+                            <option value="English">English</option>
+                            <option value="Türkçe">Türkçe</option>
+                            <option value="Deutsch">Deutsch</option>
                         </select>
                     </div>
                 </div>

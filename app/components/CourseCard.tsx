@@ -1,6 +1,5 @@
-// components/CourseCard.js
-
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 interface Course {
     id: string;
@@ -8,6 +7,8 @@ interface Course {
     description: string;
     instructor: string;
     duration: string;
+    category: string;
+    level: string;
     photoURL?: string;
 }
 
@@ -15,9 +16,28 @@ interface CourseCardProps {
     course: Course;
 }
 
+const toUrlFriendlyString = (str: string) => {
+    return str
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, ''); // Boşlukları kaldır
+};
+
+
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
+    const router = useRouter();
+    const urlFriendlyTitle = toUrlFriendlyString(course.id);
+
+    const handleCardClick = () => {
+      
+        router.push(`/courses/${urlFriendlyTitle}`);
+    };
+
     return (
-        <div className="max-w-sm shadow-lg rounded-lg overflow-hidden">
+        <div
+            className="max-w-sm shadow-lg rounded-lg overflow-hidden cursor-pointer"
+            onClick={handleCardClick}
+        >
             <img className="w-full h-64 object-cover" src={course.photoURL} alt={course.title} />
             <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2">{course.title}</div>
