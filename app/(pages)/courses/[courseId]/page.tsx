@@ -33,7 +33,11 @@ const CourseDetailPage = ({ params }: { params: { courseId: string } }) => {
     }, [params.courseId]);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <div>Loading...</div>
+            </div>
+        );
     }
 
     if (!course) {
