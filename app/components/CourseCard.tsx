@@ -29,7 +29,6 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
     const urlFriendlyTitle = toUrlFriendlyString(course.id);
 
     const handleCardClick = () => {
-      
         router.push(`/courses/${urlFriendlyTitle}`);
     };
 
