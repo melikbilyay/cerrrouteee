@@ -44,7 +44,7 @@ export default function Hero() {
 
           </div>
         </div>
-        <Voice /> {/* Voice bileşenini buraya ekledik */}
+        <Voice />
       </section>
   );
 }

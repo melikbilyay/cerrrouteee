@@ -71,7 +71,7 @@ export default function Example() {
     return (
         <>
             <TopHeader />
-            <header className={classNames("sticky top-0 z-50 transition-shadow", isScrolled ? "bg-white/90 backdrop-blur shadow-lg" : "bg-white")}>
+            <header className={classNames("sticky top-0 z-50 transition-shadow", isScrolled ? "bg-white/95 backdrop-blur shadow-lg" : "bg-white")}>
                 <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-1 space-x-4" aria-label="Global">
                     <div className="flex shrink-0  font-semibold text-4xl lg:flex-1">
                         <Link href="/">

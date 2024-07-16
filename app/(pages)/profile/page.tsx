@@ -1,13 +1,14 @@
 'use client'
-// Ensure to import necessary modules
 import { useEffect } from 'react';
 import Link from 'next/link';
 import useFirebaseAuth from '../../hook/useFirebaseAuth'; // Adjust path as per your project structure
+
 interface User {
     displayName?: string;
     email: string;
     photoURL?: string;
 }
+
 const ProfilePage = () => {
     const { user, signOut } = useFirebaseAuth() as { user: User | null; signOut: () => Promise<void> };
 
@@ -30,56 +31,85 @@ const ProfilePage = () => {
     return (
         <div className="container mx-auto mt-8">
             {!user ? (
-                <div>Loading...</div> // Handle loading state as needed
+                <div className="flex items-center justify-center h-2/3">
+                    <div className="animate-pulse text-center">
+                        <div className="loader mb-4"></div>
+                        <p>Loading...</p>
+                    </div>
+                </div>
             ) : (
-                <div className="bg-white p-6">
-                    <div className="flex items-center mb-4">
+                <div className="bg-white shadow-lg rounded-lg p-8">
+                    <div className="  flex items-center mb-6">
                         <img
-                            className="h-12 w-12 rounded-full object-cover mr-4"
-                            src={user.photoURL || '/default-avatar.png'} // Ensure user is logged in before accessing user properties
+                            className="h-16 w-16 rounded-full object-cover mr-6 border-2 border-gray-300"
+                            src={user.photoURL || 'https://i.ibb.co/GF74SDT/vecteezy-cr-letter-initial-logo-vector-icon-illustration-6640924.jpg'} // Ensure user is logged in before accessing user properties
                             alt="Profile Picture"
                         />
                         <div>
-                            <h1 className="text-xl font-semibold">{user.displayName || 'Guest'}</h1>
-                            <p className="text-gray-500">{user.email}</p>
+                            <h1 className="text-2xl font-bold text-gray-900">{user.displayName || 'Guest'}</h1>
+                            <p className="text-gray-600">{user.email}</p>
                         </div>
                     </div>
 
-                    {/* Example sections */}
                     <section className="mb-8">
-                        <h2 className="text-lg font-semibold mb-4">My Courses</h2>
-                        {/* Display user's enrolled courses */}
-                        <ul>
-                            <li>
+                        <h2 className="text-xl font-semibold text-gray-800 mb-4">My Courses</h2>
+                        <ul className="list-disc pl-5">
+                            <li className="mb-2">
                                 <Link href="/courses/course-id">
-                                    <span>Course Name</span>
+                                    <span className="text-blue-600 hover:underline">Course Name</span>
                                 </Link>
+
                             </li>
+                            <li className="mb-2">
+                                <Link href="/courses/course-id">
+                                    <span className="text-blue-600 hover:underline">Course Name</span>
+                                </Link>
+
+                            </li>
+
                             {/* Repeat for other courses */}
                         </ul>
                     </section>
 
                     <section className="mb-8">
-                        <h2 className="text-lg font-semibold mb-4">My Progress</h2>
-                        {/* Show progress indicators */}
-                        <p>Progress: 60%</p>
-                        {/* Add more detailed progress tracking as needed */}
+                        <h2 className="text-xl font-semibold text-gray-800 mb-4">My Progress</h2>
+                        <div className="relative pt-1">
+                            <div className="flex mb-2 items-center justify-between">
+                                <div>
+                                    <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200">
+                                        Progress
+                                    </span>
+                                </div>
+                                <div className="text-right">
+                                    <span className="text-xs font-semibold inline-block text-blue-600">
+                                        60%
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
+                                <div style={{ width: "60%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-600"></div>
+                            </div>
+                        </div>
                     </section>
 
-                    <section>
-                        <h2 className="text-lg font-semibold mb-4">Settings</h2>
-                        {/* User settings form */}
-                        <form>
-                            <label htmlFor="displayName">Display Name: </label>
-                            <input
-                                type="text"
-                                id="displayName"
-                                name="displayName"
-                                defaultValue={user.displayName || ''}
-                                // Handle form submission and update profile
-                            />
+                    <section className="mb-8">
+                        <h2 className="text-xl font-semibold text-gray-800 mb-4">Settings</h2>
+                        <form className="space-y-4">
+                            <div>
+                                <label htmlFor="displayName" className="block text-sm font-medium text-gray-700">Display Name</label>
+                                <input
+                                    type="text"
+                                    id="displayName"
+                                    name="displayName"
+                                    defaultValue={user.displayName || ''}
+                                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                />
+                            </div>
                             {/* Add more fields for email, password, etc. */}
-                            <button type="submit" className="bg-blue-500 text-white px-4 py-2 mt-2 rounded-lg">
+                            <button
+                                type="submit"
+                                className="w-full bg-orange-500 text-white py-2 px-4 rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            >
                                 Update Profile
                             </button>
                         </form>
@@ -88,7 +118,7 @@ const ProfilePage = () => {
                     <div className="mt-8">
                         <button
                             onClick={handleLogout}
-                            className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                            className="w-full bg-red-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                         >
                             Logout
                         </button>

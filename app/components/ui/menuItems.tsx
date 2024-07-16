@@ -9,7 +9,7 @@ export const menuItems = [
                         title: "Data Science",
                         submenu: [
                             { title: "Data Analysis" },
-                            { title: "Big Data - Sıfırdan ve Gelişmiş iki düzeyde eğitim" },
+                            { title: "Big Data " },
                             { title: "Data Modeling" },
                             { title: "Data Analysis Expressions (DAX)" }
                         ]
@@ -19,11 +19,11 @@ export const menuItems = [
                         submenu: [
                             { title: "ChatGPT" },
                             { title: "ChatGPT for Software Developers" },
-                            { title: "Generative AI for Software Developers - IBM" },
-                            { title: "Generative AI: Foundation Models and Platforms - IBM" },
-                            { title: "Generative AI: Business Transformation and Career Growth - IBM" },
+                            { title: "Generative AI for Software Developers " },
+                            { title: "Foundation Models and Platforms" },
+                            { title: "Business Transformation" },
                             { title: "Introduction to Generative AI Studio" },
-                            { title: "Samsung AI for Career Growth and in Daily Life" }
+                            { title: "Samsung AI for Career Growth " }
                         ]
                     },
                     { title: "Cyber Security" },
@@ -87,13 +87,13 @@ export const menuItems = [
                     {
                         title: "Digital Marketing",
                         submenu: [
-                            { title: "Digital Marketing and E-Commerce- FBA, Dropshipping, ETS…" },
-                            { title: "Social Media Marketing - Meta, Instagram Marketing, TikTok Marketing/Shopping & Showcase → Rakip platformlarda yok!!!" },
+                            { title: "Digital Marketing & E-Commerce" },
+                            { title: "Social Media Marketing " },
                             { title: "Gemini" },
                             { title: "Google Analytics" },
                             { title: "Marketing Strategy" },
-                            { title: "Search Engine Optimization (SEO)" },
-                            { title: "Digital Advertising - Google Ads…" },
+                            { title: "Search Engine Optimization" },
+                            { title: "Digital Advertising" },
                             { title: "Email Marketing" },
                             { title: "Copywriting" },
                             { title: "Social Media Management" }
@@ -116,7 +116,7 @@ export const menuItems = [
                     { title: "Digital Finance" },
                     { title: "Blockchain" },
                     { title: "Risk Management & Investment" },
-                    { title: "Master of Business Administration (MBA)" },
+                    { title: "Master of Business Administration" },
                     { title: "Financial Management" },
                     { title: "Business Administration" },
                     { title: "Financial Analysis" },
@@ -156,11 +156,11 @@ export const menuItems = [
             {
                 title: "Arts and Humanities",
                 submenu: [
-                    { title: "Art - Art History, gender and art, society and art…" },
+                    { title: "Art " },
                     { title: "History" },
                     { title: "Music" },
                     { title: "Animation" },
-                    { title: "Psychology- Neuro-Linguistic Programing (NLP)" },
+                    { title: "Psychology" },
                     { title: "Mindfulness" },
                     { title: "Religions" },
                     { title: "Logic" },
@@ -171,7 +171,6 @@ export const menuItems = [
                 submenu: [
                     { title: "Sports & Fitness" },
                     { title: "Nutrition & Diet" },
-                    { title: "Mental Health" },
                     { title: "Yoga & Meditation" },
                     { title: "Martial Arts & Self Defense" },
                     { title: "Cognitive Behavioral Therapy (CBT)" },
@@ -205,7 +204,6 @@ export const menuItems = [
                 submenu: [
                     { title: "Engineering" },
                     { title: "Science" },
-                    { title: "Test Prep - IELTS, TOEFL, SAT, TEOG-YKS etc." },
                     { title: "Math" },
                     { title: "Teacher Training" },
                     { title: "Language" }

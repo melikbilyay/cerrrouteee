@@ -8,8 +8,7 @@ interface Course {
     description: string;
     instructor: string;
     duration: string;
-    photoURL?: string;  // Assuming photoURL is always present based on previous discussions
-    // Add other fields as needed
+    photoURL?: string;
 }
 
 interface CourseCardProps {
