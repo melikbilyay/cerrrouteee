@@ -1,5 +1,4 @@
-'use client';
-
+'use client'
 import { Fragment, useEffect, useState, useRef } from 'react';
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
@@ -68,6 +67,10 @@ export default function Example() {
         setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown visibility
     };
 
+    const handleMouseLeave = () => {
+        setIsDropdownOpen(false); // Close dropdown when mouse leaves profile or dropdown
+    };
+
     return (
         <>
             <TopHeader />
@@ -131,7 +134,7 @@ export default function Example() {
                         ) : (
                             <div className="relative left-14" ref={dropdownRef}>
                                 <button
-                                    onClick={handleProfileClick}
+                                    onMouseEnter={handleProfileClick}
                                     className="text-sm font-semibold leading-6 text-gray-900"
                                 >
                                     {user.displayName
@@ -142,7 +145,10 @@ export default function Example() {
                                         : ''}
                                 </button>
                                 {isDropdownOpen && (
-                                    <div className="absolute -left-14 mt-2 w-48 bg-white border rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <div
+                                        onMouseLeave={handleMouseLeave}
+                                        className="absolute -left-14 mt-2 w-48 bg-white border rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                    >
                                         <div className="py-1">
                                             <button
                                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
@@ -273,4 +279,3 @@ export default function Example() {
         </>
     );
 }
-
