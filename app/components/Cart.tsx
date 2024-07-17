@@ -1,10 +1,10 @@
 'use client'
 
-import React, {useEffect, useRef, useState} from 'react';
+
+import React, { useEffect, useRef, useState } from 'react';
 import { useCart } from '../contexts/CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-
 
 interface CartProps {
     onClose: () => void;
@@ -34,7 +34,6 @@ const Cart: React.FC<CartProps> = ({ onClose }) => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
-
 
     return (
         <AnimatePresence>
@@ -108,7 +107,10 @@ const Cart: React.FC<CartProps> = ({ onClose }) => {
                                 Apply Coupon
                             </button>
                             <Link href="/checkout">
-                                <button className="bg-orange-400 text-white py-2 px-4 rounded w-full">
+                                <button
+                                    className="bg-orange-400 text-white py-2 px-4 rounded w-full"
+                                    onClick={handleClose}
+                                >
                                     Checkout
                                 </button>
                             </Link>
