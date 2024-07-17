@@ -106,12 +106,12 @@ const Cart: React.FC<CartProps> = ({ onClose }) => {
                             <button className="bg-gray-500 text-white py-2 px-4 rounded w-full mb-4">
                                 Apply Coupon
                             </button>
-                            <Link href="/checkout">
+                            <Link href="/cart">
                                 <button
                                     className="bg-orange-400 text-white py-2 px-4 rounded w-full"
                                     onClick={handleClose}
                                 >
-                                    Checkout
+                                    Go to Cart
                                 </button>
                             </Link>
                         </div>
