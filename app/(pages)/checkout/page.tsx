@@ -1,4 +1,6 @@
-'use client'// pages/checkout.tsx
+// pages/checkout.tsx
+'use client'
+
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/app/contexts/CartContext';
@@ -7,7 +9,6 @@ const CheckoutPage: React.FC = () => {
     const router = useRouter();
     const { cart } = useCart();
 
-    // State for form fields
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -17,16 +18,17 @@ const CheckoutPage: React.FC = () => {
         couponCode: '',
     });
 
-    // Placeholder for handling checkout logic
     const handleCheckout = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // Implement your checkout logic here, e.g., processing payment, order creation, etc.
-        alert('Checkout functionality will be implemented here.');
-        // Redirect or navigate to the thank you page or order confirmation page
-        router.push('/thank-you');
+
+
+        // Convert cart to JSON string and encode it to use in URL
+        const cartString = encodeURIComponent(JSON.stringify(cart));
+
+        router.push(`/thankyou?purchasedItems=${cartString}`);
     };
 
-    // Update form state on input change
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = event.target;
         setFormData((prevData) => ({
@@ -39,7 +41,6 @@ const CheckoutPage: React.FC = () => {
         <div className="container mx-auto mt-8">
             <h1 className="text-3xl font-bold mb-4">Checkout</h1>
             <div className="bg-white shadow-md rounded-lg p-6">
-                {/* Course summary */}
                 {cart.length > 0 && (
                     <div className="mb-6">
                         <h2 className="text-xl font-semibold mb-2">Course Summary</h2>
@@ -55,7 +56,6 @@ const CheckoutPage: React.FC = () => {
                     </div>
                 )}
 
-                {/* Checkout form */}
                 <form onSubmit={handleCheckout}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
