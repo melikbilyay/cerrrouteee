@@ -1,8 +1,7 @@
-// pages/thank-you.tsx
 'use client'
 
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 
 const ThankYouPage: React.FC = () => {
     const router = useRouter();
@@ -52,4 +51,10 @@ const ThankYouPage: React.FC = () => {
     );
 };
 
-export default ThankYouPage;
+export default function Page() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <ThankYouPage />
+        </Suspense>
+    );
+}

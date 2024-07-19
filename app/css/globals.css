@@ -149,3 +149,178 @@ nav ul li ul li:hover {
   left: 100%;
   top: -7px;
 }
+/* styles/globals.css */
+.chatbot-toggle-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #FB923C;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chatbot-toggle-button:hover {
+  background-color: #FFB74D;
+}
+
+.chatbot-popup-window {
+  position: fixed;
+  bottom: 80px;
+  left: 20px;
+  width: 320px;
+  height: 450px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.chatbot-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.chatbot-message {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  max-width: 80%;
+}
+
+.chatbot-message-user {
+  align-self: flex-end;
+  background-color: #cef;
+}
+
+.chatbot-message-bot {
+  align-self: flex-start;
+  background-color: #efe;
+}
+
+.chatbot-input {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.chatbot-send-button {
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #FB923C;
+  color: white;
+  cursor: pointer;
+}
+
+.chatbot-send-button:hover {
+  background-color: #FFB74D;
+}
+
+
+/* styles/globals.css */
+.instructors-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+}
+
+.instructors-title {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.5em;
+  color: #333;
+  position: relative;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.instructors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.instructor-card {
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.instructor-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.instructor-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 183, 77, 0.2); /* Orange 300 */
+  transition: opacity 0.3s ease;
+  z-index: 0;
+  opacity: 0;
+}
+
+.instructor-card:hover::before {
+  opacity: 1;
+}
+
+.instructor-name {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+  color: #333;
+  position: relative;
+  z-index: 1;
+}
+
+.instructor-subject {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #666;
+  position: relative;
+  z-index: 1;
+}
+
+.instructor-description {
+  font-size: 1em;
+  line-height: 1.6;
+  color: #555;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
