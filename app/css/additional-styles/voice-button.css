@@ -1,8 +1,8 @@
 .floating-button {
     position: fixed;
-    bottom: 30px;
-    right: 22px; /* Butonu sağ alt köşeye yerleştirir */
-    background-color: #FFA500; /* Buton rengi */
+    bottom: 100px;
+    left: 20px; /* Butonu sağ alt köşeye yerleştirir */
+    background-color: #FB923C; /* Buton rengi */
     color: white;
     border: none;
     border-radius: 50%;
@@ -16,12 +16,12 @@
     z-index: 1000; /* Butonun üstte kalmasını sağlar */
     transition: none; /* Başlangıçta geçişi devre dışı bırak */
   }
-  
+
   .floating-button.transition-enabled {
     transition: transform 1s ease, background-color 0.7s ease; /* Geçiş animasyonları için */
   }
-  
+
   .floating-button:hover {
-    background-color: #FF4500; /* Hover rengi */
-    transform: scale(1.2); /* Butonu %20 büyütür */
+    background-color: #FFB74D; /* Hover rengi */
+    transform: scale(1.1); /* Butonu %20 büyütür */
   }

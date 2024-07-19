@@ -158,8 +158,8 @@ nav ul li ul li:hover {
   color: white;
   border: none;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 65px;
+  height: 65px;
   font-size: 20px;
   cursor: pointer;
   z-index: 1000;
@@ -170,6 +170,7 @@ nav ul li ul li:hover {
 
 .chatbot-toggle-button:hover {
   background-color: #FFB74D;
+  transform: scale(1.1);
 }
 
 .chatbot-popup-window {
