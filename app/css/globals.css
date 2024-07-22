@@ -175,8 +175,8 @@ nav ul li ul li:hover {
 
 .chatbot-popup-window {
   position: fixed;
-  bottom: 80px;
-  left: 20px;
+  bottom: 95px;
+  left: 15px;
   width: 320px;
   height: 450px;
   border: 1px solid #ccc;
@@ -325,3 +325,74 @@ nav ul li ul li:hover {
   }
 }
 
+.main-button-container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-button {
+  background-color: #FB923C;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  position: relative; /* Ensure correct stacking */
+}
+
+.buttons-wrapper {
+  position: absolute;
+  bottom: 40px; /* Adjust this value to control how high the expanded buttons appear */
+  right: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10; /* Ensure buttons are on top */
+}
+
+.expanded-button {
+  background-color: #FFB74D;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: -40px; /* Space between buttons */
+}
+.chatbot-brand-bar {
+  background: #FB923C;
+  color: #fff;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.brand-name {
+  font-size: 16px;
+}
+
+.chatbot-exit-button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}

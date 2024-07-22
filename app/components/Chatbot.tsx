@@ -1,6 +1,6 @@
-// components/Chatbot.tsx
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface Message {
     text: string;
@@ -10,6 +10,7 @@ interface Message {
 const Chatbot = () => {
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState<Message[]>([]);
+    const [isVisible, setIsVisible] = useState(true);
     const router = useRouter();
 
     const handleSend = () => {
@@ -49,25 +50,48 @@ const Chatbot = () => {
         ]);
     };
 
+    const handleClose = () => {
+        setIsVisible(false);
+    };
+
     return (
-        <div className="chatbot-popup-window">
-            <div className="chatbot-messages">
-                {messages.map((msg, index) => (
-                    <div key={index} className={`chatbot-message ${msg.user ? 'chatbot-message-user' : 'chatbot-message-bot'}`}>
-                        {msg.text}
+        <>
+            {isVisible && (
+                <div className="chatbot-container">
+                    <div className="chatbot-popup-window">
+                        <div className="chatbot-brand-bar">
+                            <span className="brand-name">Cerroute</span>
+                            <button onClick={handleClose} className="chatbot-exit-button">×</button>
+                        </div>
+                        <div className="chatbot-messages">
+                            <AnimatePresence>
+                                {messages.map((msg, index) => (
+                                    <motion.div
+                                        key={index}
+                                        className={`chatbot-message ${msg.user ? 'chatbot-message-user' : 'chatbot-message-bot'}`}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: 20 }}
+                                        transition={{ duration: 0.3 }}
+                                    >
+                                        {msg.text}
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
+                        </div>
+                        <input
+                            type="text"
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                            className="chatbot-input"
+                            placeholder="Write me..."
+                        />
+                        <button onClick={handleSend} className="chatbot-send-button">Gönder</button>
                     </div>
-                ))}
-            </div>
-            <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                className="chatbot-input"
-                placeholder="Mesajınızı yazın..."
-            />
-            <button onClick={handleSend} className="chatbot-send-button">Gönder</button>
-        </div>
+                </div>
+            )}
+        </>
     );
 };
 

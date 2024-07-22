@@ -1,6 +1,6 @@
 import VideoThumb from '/public/images/hero-image.png';
 import ModalVideo from '../components/modal-video';
-import Voice from '../components/voice';
+
 
 export default function Hero() {
   return (
@@ -12,7 +12,7 @@ export default function Hero() {
             <div className="text-center pb-12 md:pb-16">
               <h1 className="text-6xl md:text-8xl font-extrabold leading-tighter tracking-tighter mb-4"
                   data-aos="zoom-y-out">Your future your <span
-                  className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-orange-300">Route</span>
+                  className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-orange-300">Route </span>
               </h1>
               <div className="max-w-3xl mx-auto">
                 <p className="text-xl text-gray-600 mb-8" data-aos="zoom-y-out" data-aos-delay="150">Join our vibrant
@@ -44,7 +44,7 @@ export default function Hero() {
 
           </div>
         </div>
-        <Voice />
+
       </section>
   );
 }

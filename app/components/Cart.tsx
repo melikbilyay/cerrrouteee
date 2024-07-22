@@ -101,7 +101,6 @@ const Cart: React.FC<CartProps> = ({ onClose }) => {
                                 type="text"
                                 className="w-full p-2 mb-2 border border-gray-300 rounded"
                                 placeholder="Enter coupon code"
-                                // Implement your coupon state and onChange handler
                             />
                             <button className="bg-gray-500 text-white py-2 px-4 rounded w-full mb-4">
                                 Apply Coupon
