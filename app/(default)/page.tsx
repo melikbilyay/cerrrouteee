@@ -7,7 +7,7 @@ import Testimonials from '../components/testimonials'
 import Newsletter from '../components/newsletter'
 
 import {useState} from "react";
-import MainButton from "@/app/components/MainButton";
+
 
 export default function Home() {
     const [showChatbot, setShowChatbot] = useState(false);
@@ -17,8 +17,6 @@ export default function Home() {
   return (
       <>
           <Hero/>
-            <MainButton/>
-
           <FeaturesBlocks/>
           <Features/>
           <Testimonials/>

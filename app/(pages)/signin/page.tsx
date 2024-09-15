@@ -40,7 +40,7 @@ export default function SignIn() {
 
 
   return (
-      <section className="bg-gradient-to-b from-gray-100 to-white">
+      <section className="bg-gradient-to-b from-orange-100 to-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
             <div className="max-w-3xl mx-auto text-center pb-12 md:pb-12 ">
@@ -66,8 +66,10 @@ export default function SignIn() {
                 <div className="flex flex-wrap -mx-3 mb-4">
                   <div className="w-full px-3">
                     <div className="flex justify-between">
-                      <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="password">Password</label>
-                      <Link href="/reset-password" className="text-sm font-medium text-orange-400 hover:underline">Having trouble signing in?</Link>
+                      <label className="block text-gray-800 text-sm font-medium mb-1"
+                             htmlFor="password">Password</label>
+                      <Link href="/reset-password" className="text-sm font-medium text-orange-400 hover:underline">Having
+                        trouble signing in?</Link>
                     </div>
                     <input
                         id="password"
@@ -84,7 +86,7 @@ export default function SignIn() {
                   <div className="w-full px-3">
                     <div className="flex justify-between">
                       <label className="flex items-center">
-                        <input type="checkbox" className="form-checkbox" />
+                        <input type="checkbox" className="form-checkbox"/>
                         <span className="text-gray-600 ml-2">Keep me signed in</span>
                       </label>
                     </div>
@@ -113,7 +115,8 @@ export default function SignIn() {
                         viewBox="0 0 16 16"
                         xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path d="M7.9 7v2.4H12c-.2 1-1.2 3-4 3-2.4 0-4.3-2-4.3-4.4 0-2.4 2-4.4 4.3-4.4 1.4 0 2.3.6 2.8 1.1l1.9-1.8C11.5 1.7 9.9 1 8 1 4.1 1 1 4.1 1 8s3.1 7 7 7c4 0 6.7-2.8 6.7-6.8 0-.5 0-.8-.1-1.2H7.9z" />
+                      <path
+                          d="M7.9 7v2.4H12c-.2 1-1.2 3-4 3-2.4 0-4.3-2-4.3-4.4 0-2.4 2-4.4 4.3-4.4 1.4 0 2.3.6 2.8 1.1l1.9-1.8C11.5 1.7 9.9 1 8 1 4.1 1 1 4.1 1 8s3.1 7 7 7c4 0 6.7-2.8 6.7-6.8 0-.5 0-.8-.1-1.2H7.9z"/>
                     </svg>
                     <span className="flex-auto pl-16 pr-8 -ml-16">Continue with Google</span>
                   </button>

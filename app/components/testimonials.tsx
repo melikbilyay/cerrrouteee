@@ -112,7 +112,7 @@ const Testimonials = () => {
   }, []);
 
   return (
-      <section className="ezy__testimonial23 light py-14 md:py-8 mb-24 bg-white  text-zinc-900  relative z-[1]">
+      <section className="ezy__testimonial23 light py-14 md:py-8 mb-24 bg-white  text-zinc-900 relative z-[1]">
         <ShapeOne/>
         <ShapeTwo/>
         <div className="container px-4 mx-auto">
@@ -129,7 +129,7 @@ const Testimonials = () => {
             <div className="grid grid-cols-3 gap-6">
               {testimonialList[index].map((testimonial, i) => (
                   <div className="col-span-3 lg:col-span-1" key={i}>
-                    <div className="bg-white  shadow-2xl h-full p-6 xl:p-10">
+                    <div className="bg-white  shadow-2xl h-72 p-6 xl:p-10">
                       <div className="flex items-center mb-6">
                         <div className="mr-3">
                           <img

@@ -1,21 +1,20 @@
-'use client'
+'use client';
 import { useEffect, useState } from 'react';
-import { db } from '../../firebaseConfig'; // Adjust path as per your project structure
+import { db } from '../../firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
-import CourseCard from '../../components/CourseCard'; // Import the CourseCard component
-import LoadingCard from '../../components/LoadingCard'; // Import the LoadingCard component
+import CourseCard from '../../components/CourseCard';
+import LoadingCard from '../../components/LoadingCard';
 
 interface Course {
-    id: string;
+    id: string; // Document ID
     title: string;
     description: string;
     instructor: string;
     duration: string;
     category: string;
     level: string;
+    language: string; // Added language field
     photoURL?: string;
-    url?: string; // Make URL field optional if not always present
-    language?: string; // Add optional language field
 }
 
 const CoursesPage = () => {
@@ -38,14 +37,14 @@ const CoursesPage = () => {
                     const data = doc.data();
                     return {
                         id: doc.id,
-                        title: data.title || "", // Ensure to handle optional fields properly
+                        title: data.title || "",
                         description: data.description || "",
                         instructor: data.instructor || "",
                         duration: data.duration || "",
                         category: data.category || "",
                         level: data.level || "",
-                        photoURL: data.photoURL || "", // Handle optional URL field correctly
-                        url: data.url || "" // Handle optional URL field correctly
+                        language: data.language || "", // Make sure this is consistent
+                        photoURL: data.photoURL || "",
                     };
                 });
                 setCourses(coursesData);
@@ -79,82 +78,79 @@ const CoursesPage = () => {
     return (
         <div className="mt-12 flex justify-center">
             <div className="flex w-full max-w-7xl">
-                <div className="w-1/4 p-4 border-r border-gray-200">
-                    <h2 className="text-lg font-semibold mb-4">Filter Courses</h2>
-                    <div className="mb-4">
-                        <label className="block mb-2 font-medium">Title</label>
+                <div className="w-1/4 p-4">
+                    <h2 className="text-lg font-semibold mb-4 text-center">Filter Courses</h2>
+
+                    <div className="space-y-4">
+                        {/* Filter by Title */}
                         <input
                             type="text"
                             name="title"
+                            placeholder="Search by title"
+                            className="w-full p-2 border border-gray-300 rounded"
                             value={filter.title}
                             onChange={handleFilterChange}
-                            placeholder="Filter by title"
-                            className="w-full p-2 border border-orange-200 rounded"
                         />
-                    </div>
-                    <div className="mb-4">
-                        <label className="block mb-2 font-medium">Instructor</label>
+
+                        {/* Filter by Instructor */}
                         <input
                             type="text"
                             name="instructor"
+                            placeholder="Search by instructor"
+                            className="w-full p-2 border border-gray-300 rounded"
                             value={filter.instructor}
                             onChange={handleFilterChange}
-                            placeholder="Filter by instructor"
-                            className="w-full p-2 border border-orange-200 rounded"
                         />
-                    </div>
-                    <div className="mb-4">
-                        <label className="block mb-2 font-medium">Duration</label>
+
+                        {/* Filter by Duration */}
                         <input
                             type="text"
                             name="duration"
+                            placeholder="Search by duration"
+                            className="w-full p-2 border border-gray-300 rounded"
                             value={filter.duration}
                             onChange={handleFilterChange}
-                            placeholder="Filter by duration"
-                            className="w-full p-2 border border-orange-200 rounded"
                         />
-                    </div>
-                    <div className="mb-4">
-                        <label className="block mb-2 font-medium">Category</label>
+
+                        {/* Filter by Category */}
                         <select
                             name="category"
+                            className="w-full p-2 border border-gray-300 rounded"
                             value={filter.category}
                             onChange={handleFilterChange}
-                            className="w-full p-2 border border-gray-300 rounded"
                         >
-                            <option value="">All Categories</option>
-                            <option value="Programming">Programming</option>
+                            <option value="">Select Category</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Data Science">Data Science</option>
                             <option value="Design">Design</option>
-                            <option value="Marketing">Marketing</option>
-                            <option value="Business">Business</option>
+                            {/* Add more categories as needed */}
                         </select>
-                    </div>
-                    <div className="mb-4">
-                        <label className="block mb-2 font-medium">Level</label>
+
+                        {/* Filter by Level */}
                         <select
                             name="level"
+                            className="w-full p-2 border border-gray-300 rounded"
                             value={filter.level}
                             onChange={handleFilterChange}
-                            className="w-full p-2 border border-gray-300 rounded"
                         >
-                            <option value="">All Levels</option>
+                            <option value="">Select Level</option>
                             <option value="Beginner">Beginner</option>
                             <option value="Intermediate">Intermediate</option>
                             <option value="Advanced">Advanced</option>
                         </select>
-                    </div>
-                    <div>
-                        <label className="block mb-2 font-medium">Language</label>
+
+                        {/* Filter by Language */}
                         <select
                             name="language"
+                            className="w-full p-2 border border-gray-300 rounded"
                             value={filter.language}
                             onChange={handleFilterChange}
-                            className="w-full p-2 border border-gray-300 rounded"
                         >
-                            <option value="">All Languages</option>
+                            <option value="">Select Language</option>
                             <option value="English">English</option>
-                            <option value="Türkçe">Türkçe</option>
-                            <option value="Deutsch">Deutsch</option>
+                            <option value="Spanish">Spanish</option>
+                            <option value="French">French</option>
+                            {/* Add more languages as needed */}
                         </select>
                     </div>
                 </div>

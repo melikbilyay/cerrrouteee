@@ -1,35 +1,22 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation'; // Import usePathname
 
 export default function TopHeader() {
     const [isVisible, setIsVisible] = useState(true);
-    const [pathname, setPathname] = useState('');
+    const pathname = usePathname(); // Get the current path
 
     useEffect(() => {
-        const updatePathname = () => setPathname(window.location.pathname);
-
-        // Initial pathname set
-        updatePathname();
-
-        // Scroll event listener to show/hide the header
         const handleScroll = () => {
             setIsVisible(window.scrollY === 0);
         };
 
         window.addEventListener('scroll', handleScroll);
-        window.addEventListener('popstate', updatePathname);
 
-        // Clean up event listeners
         return () => {
             window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('popstate', updatePathname);
         };
     }, []);
-
-    // Function to handle link clicks and update pathname
-    const handleLinkClick = (path:any) => {
-        setPathname(path);
-    };
 
     return (
         <div className={`header-font transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'} bg-black shadow-md py-2.5 px-4`}>
@@ -37,21 +24,25 @@ export default function TopHeader() {
                 <Link href="/">
                     <span
                         className={`text-m font-semibold text-white ${pathname === '/' ? 'border-b-2 border-white' : ''}`}
-                        onClick={() => handleLinkClick('/')}
                     >
-                     Individual
+                        Individual
                     </span>
                 </Link>
-                <Link href="/kurumsal">
+                <Link href="/corporate">
                     <span
-                        className={`text-m font-semibold text-white ${pathname === '/kurumsal' ? 'border-b-2 border-white' : ''}`}
-                        onClick={() => handleLinkClick('/kurumsal')}
+                        className={`text-m font-semibold text-white ${pathname === '/corporate' ? 'border-b-2 border-white' : ''}`}
                     >
                         Corporate
+                    </span>
+                </Link>
+                <Link href="/instructor">
+                    <span
+                        className={`text-m font-semibold text-white ${pathname === '/instructor' ? 'border-b-2 border-white' : ''}`}
+                    >
+                        Instructor
                     </span>
                 </Link>
             </div>
         </div>
     );
 }
-

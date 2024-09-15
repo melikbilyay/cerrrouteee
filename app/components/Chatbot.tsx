@@ -1,4 +1,5 @@
-import { useState } from 'react';
+'use client'
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -12,6 +13,15 @@ const Chatbot = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [isVisible, setIsVisible] = useState(true);
     const router = useRouter();
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
 
     const handleSend = () => {
         if (input.trim() !== '') {
@@ -27,21 +37,44 @@ const Chatbot = () => {
 
         if (lowerInput.includes('ana sayfa')) {
             response = 'Ana sayfaya yönlendiriliyorsunuz...';
-            setTimeout(() => router.push('/'), 1500);
+            setTimeout(() => {
+                router.push('/');
+                handleClose();
+            }, 1500);
         } else if (lowerInput.includes('hakkımızda')) {
             response = 'Hakkımızda sayfasına yönlendiriliyorsunuz...';
-            setTimeout(() => router.push('/about'), 1500);
+            setTimeout(() => {
+                router.push('/about');
+                handleClose();
+            }, 1500);
         } else if (lowerInput.includes('iletişim')) {
             response = 'İletişim sayfasına yönlendiriliyorsunuz...';
-            setTimeout(() => router.push('/contact'), 1500);
+            setTimeout(() => {
+                router.push('/contact');
+                handleClose();
+            }, 1500);
         } else if (lowerInput.includes('kurslar')) {
             response = 'Kurslar sayfasına yönlendiriliyorsunuz...';
-            setTimeout(() => router.push('/courses'), 1500);
+            setTimeout(() => {
+                router.push('/courses');
+                handleClose();
+            }, 1500);
         } else if (lowerInput.includes('eğitmenler')) {
             response = 'Eğitmenler sayfasına yönlendiriliyorsunuz...';
-            setTimeout(() => router.push('/instructors'), 1500);
+            setTimeout(() => {
+                router.push('/instructors');
+                handleClose();
+            }, 1500);
+        } else if (lowerInput.includes('merhaba')) {
+            response = 'Merhaba! Size nasıl yardımcı olabilirim?';
+        } else if (lowerInput.includes('teşekkürler')) {
+            response = 'Rica ederim! Başka bir şey yardımcı olabilir miyim?';
+        } else if (lowerInput.includes('nasılsın')) {
+            response = 'Ben bir yapay zekayım, bu yüzden duygularım yok, ama size yardımcı olabilmek için buradayım!';
+        } else if (lowerInput.includes('yardım')) {
+            response = 'Elbette, nasıl yardımcı olabilirim? Ana sayfa, Hakkımızda, İletişim, Kurslar veya Eğitmenler hakkında bilgi mi almak istiyorsunuz?';
         } else {
-            response = 'Anlayamadım, lütfen tekrar deneyin.';
+            response = 'Anlayamadım, lütfen tekrar deneyin veya farklı bir şey sorun.';
         }
 
         setMessages((prevMessages) => [
@@ -78,6 +111,7 @@ const Chatbot = () => {
                                     </motion.div>
                                 ))}
                             </AnimatePresence>
+                            <div ref={messagesEndRef} />
                         </div>
                         <input
                             type="text"
@@ -85,7 +119,7 @@ const Chatbot = () => {
                             onChange={(e) => setInput(e.target.value)}
                             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                             className="chatbot-input"
-                            placeholder="Write me..."
+                            placeholder="Bana yaz..."
                         />
                         <button onClick={handleSend} className="chatbot-send-button">Gönder</button>
                     </div>

@@ -1,5 +1,5 @@
 // components/CourseDetailPage.tsx
-'use client'
+'use client';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { db } from '@/app/firebaseConfig'; // Adjust path as per your project structure
@@ -7,7 +7,13 @@ import { doc, getDoc } from 'firebase/firestore';
 import { useCart } from '@/app/contexts/CartContext';
 import Cart from '../../../components/Cart';
 
-const CourseDetailPage = ({ params }: { params: { courseId: string } }) => {
+interface CourseDetailPageProps {
+    params: {
+        courseId: string;
+    };
+}
+
+const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ params }) => {
     const [course, setCourse] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [couponCode, setCouponCode] = useState<string>('');
@@ -24,21 +30,27 @@ const CourseDetailPage = ({ params }: { params: { courseId: string } }) => {
                 if (docSnap.exists()) {
                     setCourse(docSnap.data());
                 } else {
-                    console.log('No such document!');
+                    console.error('No such document with ID:', params.courseId);
+                    setCourse(null);
                 }
                 setLoading(false);
             } catch (error) {
-                console.error('Error fetching course: ', error);
+                console.error('Error fetching course with ID', params.courseId, ':', error);
                 setLoading(false);
             }
         };
+
 
         fetchCourse();
     }, [params.courseId]);
 
     const handleAddToCart = () => {
-        addToCart(course);
-        setIsCartOpen(true);
+        if (course) {
+            addToCart(course);
+            setIsCartOpen(true);
+        } else {
+            console.error('No course data available to add to cart');
+        }
     };
 
     const handleCartClose = () => {
@@ -54,7 +66,7 @@ const CourseDetailPage = ({ params }: { params: { courseId: string } }) => {
     }
 
     if (!course) {
-        return <div>Course not found</div>;
+        return <div>Course not found or failed to fetch course details</div>;
     }
 
     return (
