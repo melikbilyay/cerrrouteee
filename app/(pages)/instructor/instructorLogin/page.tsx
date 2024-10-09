@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from 'next/link';
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "@/app/firebaseConfig";
+import { auth, googleProvider } from "@/app/firebase/firebaseConfig";
 import { useRouter } from 'next/navigation';
 
 export default function InstructorSignIn() {

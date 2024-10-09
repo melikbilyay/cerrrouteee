@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { signOut } from 'firebase/auth';
-import { auth } from "@/app/firebaseConfig";
+import { auth } from "@/app/firebase/firebaseConfig";
 import InstructorLayout from "./InstructorLayout";
 
 export default function InstructorProfile() {

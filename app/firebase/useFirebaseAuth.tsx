@@ -1,10 +1,11 @@
 // hooks/useFirebaseAuth.js
 
 import { useState, useEffect } from 'react';
-import { auth } from '../firebaseConfig'; // Path to your Firebase configuration file
+import { auth } from '../firebase/firebaseConfig'; // Path to your Firebase configuration file
+import { User, signInWithEmailAndPassword, signOut as firebaseSignOut } from 'firebase/auth'; // Import methods directly
 
 const useFirebaseAuth = () => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -16,9 +17,9 @@ const useFirebaseAuth = () => {
         return unsubscribe;
     }, []);
 
-    const signIn = async (email, password) => {
+    const signIn = async (email: string, password: string) => {
         try {
-            await auth.signInWithEmailAndPassword(email, password);
+            await signInWithEmailAndPassword(auth, email, password); // Pass the auth object as the first argument
         } catch (error) {
             console.error('Error signing in:', error);
             // Handle error (e.g., show error message to user)
@@ -27,7 +28,7 @@ const useFirebaseAuth = () => {
 
     const signOut = async () => {
         try {
-            await auth.signOut();
+            await firebaseSignOut(auth); // Use firebaseSignOut for sign out
         } catch (error) {
             console.error('Error signing out:', error);
             // Handle error (e.g., show error message to user)
@@ -35,7 +36,7 @@ const useFirebaseAuth = () => {
     };
 
     return {
-        user, // Assuming `user` can initially be `null`, which is handled in the component
+        user,
         loading,
         signIn,
         signOut

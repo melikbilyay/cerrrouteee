@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { db } from '../../firebaseConfig';
+import { db } from '../../firebase/firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
 import CourseCard from '../../components/CourseCard';
 import LoadingCard from '../../components/LoadingCard';
@@ -154,7 +154,7 @@ const CoursesPage = () => {
                         </select>
                     </div>
                 </div>
-                <div className="w-3/4 p-4">
+                <div className="container mx-auto flex flex-col items-center">
                     {loading ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                             {[...Array(8)].map((_, index) => (

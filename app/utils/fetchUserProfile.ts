@@ -1,5 +1,5 @@
 // src/utils/fetchUserProfile.ts
-import { db } from "@/app/firebaseConfig"; // Firebase yapılandırma dosyanızı kontrol edin
+import { db } from "@/app/firebase/firebaseConfig"; // Firebase yapılandırma dosyanızı kontrol edin
 import { doc, getDoc } from "firebase/firestore";
 
 export const fetchUserProfile = async (uid: string) => {

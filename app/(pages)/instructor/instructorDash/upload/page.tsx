@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { storage, db } from '@/app/firebaseConfig'; // Adjust import based on your project structure
+import { storage, db } from '@/app/firebase/firebaseConfig'; // Adjust import based on your project structure
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore';
 import InstructorLayout from "@/app/(pages)/instructor/instructorDash/InstructorLayout";

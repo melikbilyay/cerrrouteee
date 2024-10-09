@@ -13,3 +13,8 @@ npm-debug.log*
 # Yarn integrity file
 yarn.lock
 .next
+
+/public/cerroute-437318-21b663a2adc2.json
+
+.env
+

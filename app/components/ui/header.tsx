@@ -4,7 +4,7 @@ import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, GlobeAltIcon, ShoppingCartIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
-import useFirebaseAuth from '../../hook/useFirebaseAuth'; // Adjust the path as per your project structure
+import useFirebaseAuth from '../../firebase/useFirebaseAuth'; // Adjust the path as per your project structure
 import Navbar from './Navbar';
 import Cart from './../Cart';
 import TopHeader from './TopHeader';

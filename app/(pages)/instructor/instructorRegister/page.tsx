@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from 'next/link';
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider, db } from "@/app/firebaseConfig";
+import { auth, googleProvider, db } from "@/app/firebase/firebaseConfig";
 import { useRouter } from 'next/navigation';
 import { doc, setDoc } from "firebase/firestore";
 

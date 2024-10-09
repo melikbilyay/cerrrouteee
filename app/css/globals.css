@@ -150,6 +150,18 @@ nav ul li ul li:hover {
   top: -7px;
 }
 /* styles/globals.css */
+.chatbot-send-button,
+.chatbot-mic-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px; /* İkon boyutunu ayarlayın */
+  color: #333; /* İkon rengi */
+  margin-left: 8px; /* Butonlar arasındaki boşluk */
+}
+
+
+
 .chatbot-toggle-button {
   position: fixed;
   bottom: 20px;
@@ -176,7 +188,7 @@ nav ul li ul li:hover {
 .chatbot-popup-window {
   position: fixed;
   bottom: 95px;
-  left: 15px;
+  right: 15px;
   width: 320px;
   height: 450px;
   border: 1px solid #ccc;

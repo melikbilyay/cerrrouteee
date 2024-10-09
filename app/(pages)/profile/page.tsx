@@ -1,7 +1,7 @@
 'use client'
 import { useEffect } from 'react';
 import Link from 'next/link';
-import useFirebaseAuth from '../../hook/useFirebaseAuth'; // Adjust path as per your project structure
+import useFirebaseAuth from '../../firebase/useFirebaseAuth'; // Adjust path as per your project structure
 
 interface User {
     displayName?: string;

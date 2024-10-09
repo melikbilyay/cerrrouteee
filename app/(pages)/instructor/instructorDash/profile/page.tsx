@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import InstructorLayout from "@/app/(pages)/instructor/instructorDash/InstructorLayout";
 import { fetchUserProfile } from "@/app/utils/fetchUserProfile"; // Bu dosyanın yolu doğru mu kontrol edin
-import { auth } from "@/app/firebaseConfig"; // Firebase authentication'ı kontrol edin
+import { auth } from "@/app/firebase/firebaseConfig"; // Firebase authentication'ı kontrol edin
 
 export default function ProfilePage() {
     const [profile, setProfile] = useState<any>(null);

@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { signOut } from 'firebase/auth';
-import { auth } from '@/app/firebaseConfig'; // Path to your Firebase config
+import { auth } from '@/app/firebase/firebaseConfig'; // Path to your Firebase config
 
 interface InstructorLayoutProps {
     children: ReactNode;
