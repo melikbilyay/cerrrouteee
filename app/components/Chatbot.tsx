@@ -5,33 +5,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { franc } from 'franc';
 
 interface Message {
     text: string;
     user: boolean;
-}
-
-// Add SpeechRecognition type declaration here
-interface SpeechRecognition extends EventTarget {
-    new (): SpeechRecognition;
-    start: () => void;
-    stop: () => void;
-    lang: string;
-    interimResults: boolean;
-    onresult: (event: SpeechRecognition) => void;
-    onend: () => void;
-    onerror: (event: SpeechRecognition) => void;
-}
-
-declare var SpeechRecognition: {
-    prototype: SpeechRecognition;
-    new (): SpeechRecognition;
-};
-
-declare global {
-    interface Window {
-        webkitSpeechRecognition: typeof SpeechRecognition;
-    }
 }
 
 const Chatbot = () => {
@@ -39,9 +17,21 @@ const Chatbot = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [isVisible, setIsVisible] = useState(true);
     const [listening, setListening] = useState(false);
+    const [isResponsiveVoiceReady, setIsResponsiveVoiceReady] = useState(false);
     const router = useRouter();
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const recognitionRef = useRef<SpeechRecognition | null>(null);
+
+    useEffect(() => {
+        const checkResponsiveVoiceReady = setInterval(() => {
+            if (typeof window !== 'undefined' && window.responsiveVoice) {
+                clearInterval(checkResponsiveVoiceReady);
+                setIsResponsiveVoiceReady(true);
+            }
+        }, 100);
+
+        return () => clearInterval(checkResponsiveVoiceReady);
+    }, []);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -77,6 +67,9 @@ const Chatbot = () => {
                 ...prev,
                 { text: assistantResponse, user: false }
             ]);
+
+            speakResponse(assistantResponse);
+
         } catch (error) {
             console.error('Error communicating with OpenAI API:', error);
             setMessages((prev) => [
@@ -86,10 +79,20 @@ const Chatbot = () => {
         }
     };
 
+    const speakResponse = (text: string) => {
+        if (isResponsiveVoiceReady) {
+            const langCode = franc(text);
+            const voice = langCode === 'tur' ? "Turkish Female" : "UK English Female";
+            window.responsiveVoice.speak(text, voice);
+        } else {
+            console.error('ResponsiveVoice is not ready yet.');
+        }
+    };
+
     const handleClose = () => {
         setIsVisible(false);
         if (recognitionRef.current) {
-            recognitionRef.current.stop();
+
         }
     };
 
@@ -133,7 +136,6 @@ const Chatbot = () => {
         };
 
         recognition.onerror = (event) => {
-
             setListening(false);
         };
     };
@@ -197,7 +199,7 @@ const Chatbot = () => {
                         opacity: 1;
                     }
                     100% {
-                        opacity: 0.2;
+                        opacity: 0.5;
                     }
                 }
             `}</style>

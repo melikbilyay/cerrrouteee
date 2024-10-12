@@ -23,6 +23,14 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "pages/api"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "pages/api",
+    "@types/**/*",
+    "../../../Library/Application Support/JetBrains/WebStorm2023.3/javascript/extLibs/http_code.responsivevoice.org_responsivevoice.js"
+  ],
   "exclude": ["node_modules"]
 }
