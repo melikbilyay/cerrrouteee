@@ -7,6 +7,7 @@ import Testimonials from '../components/testimonials'
 import Newsletter from '../components/newsletter'
 
 import {useState} from "react";
+import Voice from '../components/voice'
 
 
 export default function Home() {
