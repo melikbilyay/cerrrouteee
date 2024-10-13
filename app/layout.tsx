@@ -35,9 +35,10 @@ export default function RootLayout({
     return (
         <html lang="en">
         <head>
-            <link rel="icon" href="/fav.jpg" />
+            <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+            <link rel="icon" href="/fav.jpg"/>
             <title>Cerroute</title>
-            <meta name="description" content="Cerroute" />
+            <meta name="description" content="Cerroute"/>
         </head>
         <body className={`${inter.variable} font-inter antialiased bg-white text-gray-900 tracking-tight`}>
         <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
