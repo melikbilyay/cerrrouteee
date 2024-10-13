@@ -20,7 +20,7 @@ const Chatbot = () => {
     const [isResponsiveVoiceReady, setIsResponsiveVoiceReady] = useState(false);
     const router = useRouter();
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const recognitionRef = useRef<SpeechRecognition | null>(null);
+    const recognitionRef = useRef<null | (typeof window.webkitSpeechRecognition)>(null);
 
     useEffect(() => {
         const checkResponsiveVoiceReady = setInterval(() => {
@@ -135,7 +135,7 @@ const Chatbot = () => {
             setListening(false); // Update listening state when recognition ends
         };
 
-        recognition.onerror = (event) => {
+        recognition.onerror = (event: SpeechRecognitionResult) => {
             setListening(false);
         };
     };
