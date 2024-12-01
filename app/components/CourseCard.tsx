@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart } from '../contexts/CartContext'; // Adjust the import path as needed
-import Cart from './Cart'; // Adjust the import path as needed
 
 interface Course {
     id: string; // Document ID
@@ -19,7 +18,6 @@ interface CourseCardProps {
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
-    const [isCartVisible, setCartVisible] = useState(false);
     const router = useRouter();
     const { addToCart } = useCart(); // Use the addToCart function from CartContext
 
@@ -37,32 +35,32 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
             image: course.photoURL || '', // Fallback if photoURL is undefined
         };
         addToCart(cartItem);
-        setCartVisible(true); // Show the cart when item is added
-    };
-
-    const handleCloseCart = () => {
-        setCartVisible(false); // Hide the cart
     };
 
     return (
         <div
-            className="max-w-sm shadow-lg rounded-lg overflow-hidden cursor-pointer"
+            className="relative max-w-sm shadow-lg rounded-lg overflow-hidden cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl"
             onClick={handleCardClick}
         >
-            <img className="w-full h-64 object-cover" src={course.photoURL || '/default-image.jpg'} alt={course.title} />
-            <div className="px-6 py-4">
+            {/* Container for the image with padding */}
+            <div className="p-2">
+                <img
+                    className="w-full h-full object-cover rounded-lg" // Added rounded corners for the image
+                    src={course.photoURL || '/default-image.jpg'}
+                    alt={course.title}
+                />
+            </div>
+            <div className="px-6 py-4 bg-white">
                 <div className="font-bold text-xl mb-2">{course.title}</div>
-                <p className="text-gray-700 text-base">{course.description}</p>
-                <p className="text-gray-600">Instructor: {course.instructor}</p>
-                <p className="text-gray-600">Duration: {course.duration}</p>
+                <p className="text-gray-700">Instructor: {course.instructor}</p>
+                <p className="text-gray-700">Duration: {course.duration}</p>
                 <button
-                    className="mt-4 bg-orange-400 text-white py-2 px-4 rounded"
+                    className="mt-4 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition duration-200"
                     onClick={handleAddToCart}
                 >
                     Add to Cart
                 </button>
             </div>
-            {isCartVisible && <Cart onClose={handleCloseCart} />}
         </div>
     );
 };

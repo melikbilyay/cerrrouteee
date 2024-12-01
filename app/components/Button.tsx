@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import ScaleLoader from "react-spinners/ScaleLoader";
 
 interface ButtonProps {
@@ -5,11 +6,26 @@ interface ButtonProps {
     onClick: () => void;
     isLoading: boolean;
     disabled?: boolean; // Make it optional
+    shortcutKey?: string; // Kısayol tuşu özelliği
 }
 
-const Button: React.FC<ButtonProps> = ({ label, onClick, isLoading, disabled = false }) => {
+const Button: React.FC<ButtonProps> = ({ label, onClick, isLoading, disabled = false, shortcutKey }) => {
     const opacity = disabled ? 0.75 : 1;
     const cursor = disabled ? "not-allowed" : "pointer";
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (shortcutKey && event.key === shortcutKey && !disabled) {
+                onClick();
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [shortcutKey, onClick, disabled]);
 
     const Contents = isLoading ? (
         <ScaleLoader

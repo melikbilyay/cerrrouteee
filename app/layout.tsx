@@ -63,6 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     onClick={connected ? endCall : startCall}
                     isLoading={connecting}
                     disabled={connecting}
+                    shortcutKey="Shift"
                 />
             </div>
 
