@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from 'next/link';
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithPopup,  } from "firebase/auth";
 import { auth, googleProvider, db } from "@/app/firebase/firebaseConfig";
 import { useRouter } from 'next/navigation';
 import { doc, setDoc } from "firebase/firestore";
@@ -15,7 +15,7 @@ export default function InstructorSignUp() {
     const [experience, setExperience] = useState("");
     const [preferredMode, setPreferredMode] = useState("");
     const [error, setError] = useState("");
-    const router = useRouter(); // Initialize router for navigation
+    const router = useRouter();
 
     const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -179,7 +179,7 @@ export default function InstructorSignUp() {
                             </div>
                         </form>
                         <div className="flex items-center justify-center mt-6">
-                            <button onClick={handleGoogleSignIn} className="btn text-white bg-blue-600 hover:bg-blue-500">
+                            <button onClick={handleGoogleSignIn} className="btn text-white bg-black hover:bg-gray-700">
                                 Sign up with Google
                             </button>
                         </div>

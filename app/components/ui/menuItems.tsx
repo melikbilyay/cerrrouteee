@@ -59,7 +59,7 @@ export const menuItems = [
                             { title: "Dart (programming language )" },
                             { title: "Swift" },
                             { title: "Kotlin" },
-                            { title: "Mobile App Development" },
+                            { title: "Mobile Page Development" },
                             { title: "SwiftUI" },
                             { title: ".NET MAUI" }
                         ]

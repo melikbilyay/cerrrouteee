@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import TopHeader from "@/app/components/ui/TopHeader";
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'; // You can use Heroicons for icons
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+ // You can use Heroicons for icons
 
 export default function BusinessHeader() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,7 +42,7 @@ export default function BusinessHeader() {
                             </Link>
                             <Link href="/instructor/instructorRegister">
                                 <span
-                                    className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800">Get started</span>
+                                    className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800">Sign Up</span>
                             </Link>
                             <button className="text-black hover:text-gray-800">
                                 🌐

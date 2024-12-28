@@ -1,4 +1,4 @@
-// src/utils/fetchUserProfile.ts
+// live/utils/fetchUserProfile.ts
 import { db } from "@/app/firebase/firebaseConfig"; // Firebase yapılandırma dosyanızı kontrol edin
 import { doc, getDoc } from "firebase/firestore";
 

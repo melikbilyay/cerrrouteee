@@ -372,15 +372,40 @@ nav ul li ul li:hover {
   align-items: center;
   z-index: 10; /* Ensure buttons are on top */
 }
+.expanded-button1 {
+  border-radius: 50px; /* Makes the button oval */
+  padding: 5px 8px; /* Adjust for height and width */
+  min-width: 50px; /* Ensure a consistent width for the text */
+  text-align: center; /* Center the text */
+  background-color: #FFB74D; /* Button background color */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  cursor: pointer; /* Pointer cursor for better UX */
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.expanded-button1:disabled {
+  background-color: #cccccc; /* Change color when disabled */
+  cursor: not-allowed;
+}
+
+.expanded-button1:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
 
 .expanded-button {
+  transition: transform 0.3s, background-color 0.3s;
   background-color: #FFB74D;
   color: white;
   border: none;
+  font-size: 14px;
   border-radius: 50%;
   width: 50px;
   height: 50px;
   display: flex;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
   align-items: center;
   justify-content: center;
   cursor: pointer;

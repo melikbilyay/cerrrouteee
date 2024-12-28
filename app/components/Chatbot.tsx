@@ -89,7 +89,9 @@ const Chatbot = () => {
     const handleClose = () => {
         setIsVisible(false);
         if (recognitionRef.current) {
-            recognitionRef.current.stop();
+            if ("stop" in recognitionRef.current) {
+                recognitionRef.current.stop();
+            }
         }
     };
 

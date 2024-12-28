@@ -49,25 +49,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </CartProvider>
             </AuthProvider>
 
-            <div
-                style={{
-                    position: "fixed",
-                    bottom: "20px",
-                    left: "20px",
-                    zIndex: 1000,
-                    backgroundColor: '#FB923C',
-                }}
-            >
-                <Button
-                    label={connected ? "End Call" : "Call Cerroute"}
-                    onClick={connected ? endCall : startCall}
-                    isLoading={connecting}
-                    disabled={connecting}
-                    shortcutKey="Shift"
-                />
-            </div>
-
-            <MainButton/>
+            <MainButton
+                onCallButtonClick={connected ? endCall : startCall}
+                isLoading={connecting}
+            />
         </div>
         </body>
         </html>
