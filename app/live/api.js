@@ -1,5 +1,5 @@
 const API_BASE_URL = "https://api.videosdk.live";
-const VIDEOSDK_TOKEN ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiI1YzA2N2E0OS1kYTVmLTRjODItYTMyNS00OTg0MTIwNjkzYWIiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTczNTQyMDA4OCwiZXhwIjoxNzM1NTA2NDg4fQ.qkICDLhHdRn0LSE14jYpxPZ-pPoOjAx55HMUyquHjZ8";
+const VIDEOSDK_TOKEN ="";
 const API_AUTH_URL =  "";
 
 export const getToken = async () => {
