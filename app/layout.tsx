@@ -53,8 +53,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 onCallButtonClick={connected ? endCall : startCall}
                 isLoading={connecting}
             />
+
         </div>
         </body>
         </html>
+
     );
 }
